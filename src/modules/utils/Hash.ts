@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 
 export class Hash {
   public static async make(data: string): Promise<string> {
@@ -6,7 +6,7 @@ export class Hash {
     return bcrypt.hash(data, salt);
   }
 
-  public static async decode(
+  public static async compare(
     data: string,
     encrypted: string
   ): Promise<boolean> {

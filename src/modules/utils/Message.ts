@@ -19,59 +19,59 @@ export class Message {
     });
   }
 
-  public static badRequest(res: Response, message: string) {
+  public static badRequest(res: Response, error: any) {
     return res.status(400).json({
       success: false,
       status: "Bad Request!",
-      message,
+      error,
     });
   }
 
-  public static unauthorized(res: Response, message: string) {
+  public static unauthorized(res: Response, error: any) {
     return res.status(401).json({
       success: false,
       status: "Unauthorized!",
-      message,
+      error,
     });
   }
 
-  public static forbidden(res: Response, message: string) {
+  public static forbidden(res: Response, error: any) {
     return res.status(403).json({
       success: false,
       status: "Forbidden!",
-      message,
+      error,
     });
   }
 
-  public static notfound(res: Response, message: string) {
+  public static notfound(res: Response, error: any) {
     return res.status(404).json({
       success: false,
       status: "Not Found!",
-      message,
+      error,
     });
   }
 
-  public static conflict(res: Response, message: string) {
+  public static conflict(res: Response, error: any) {
     return res.status(409).json({
       success: false,
       status: "Conflict!",
-      message,
+      error,
     });
   }
 
-  public static unprocessable(res: Response, message: string) {
+  public static unprocessable(res: Response, error: any) {
     return res.status(422).json({
       success: false,
       status: "Unprocessable Entity!",
-      message,
+      error,
     });
   }
 
-  public static error(res: Response, message: string) {
+  public static error(res: Response, error: any) {
     return res.status(500).json({
       success: false,
       status: "Internal Server Error!",
-      message,
+      error,
     });
   }
 }

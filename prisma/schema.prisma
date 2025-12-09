@@ -14,5 +14,17 @@ model User {
   password String
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
-  deleted_at DateTime? @default(dbgenerated("null"))
+  deleted_at DateTime?
+
+  accessToken AccessToken[]
+}
+
+model AccessToken {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  token       String    @unique
+  expired_at  DateTime?
+  revoked_at  DateTime?
+  created_at  DateTime  @default(now())
 }

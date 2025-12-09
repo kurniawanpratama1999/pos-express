@@ -1,7 +1,7 @@
 import express from "express";
 import { UserRoute } from "./modules/routes/UserRoutes";
 import cors from "cors";
-import AuthMiddleware from "./modules/middlewares/Auth";
+import AuthMiddleware from "./modules/middlewares/AuthMiddleware";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 
@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
 // Routes
-app.use("/user", AuthMiddleware.handle, UserRoute);
+app.use("/api/v1/auth");
+app.use("/api/v1/user", AuthMiddleware.handle, UserRoute);
 
 export default app;
