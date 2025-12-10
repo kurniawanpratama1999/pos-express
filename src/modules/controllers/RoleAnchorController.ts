@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Message } from "../utils/Message";
 import { prisma } from "../../lib/prisma";
+import { roleCache } from "../cache/roleCache";
 
 export class RoleAnchorController {
   public static async index(req: Request, res: Response) {
@@ -41,6 +42,12 @@ export class RoleAnchorController {
         await trx.roleAnchor.deleteMany({ where: { roleId } }).catch(() => {});
         const create = await trx.roleAnchor.createMany({ data });
         return create;
+      });
+
+      const cacheKey = `roleAnchors:${roleId}`;
+      roleCache.set(cacheKey, {
+        data: trxs,
+        expired: Date.now() + 24 * 60 * 60 * 1000,
       });
 
       return Message.ok(res, "new anchors is Success", trxs);

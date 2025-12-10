@@ -84,17 +84,17 @@ export class RoleController {
     try {
       const id = Number(req.params.id);
 
-      const trx = await prisma.$transaction([
-        prisma.user.deleteMany({ where: { id } }),
-        prisma.roleAnchor.deleteMany({
-          where: { roleId: id },
-        }),
-        prisma.role.delete({ where: { id } }),
-      ]);
+      if ([1, 2, 3].includes(id)) {
+        return Message.badRequest(res, {
+          message: "cannot delete for id 1, 2, and 3",
+        });
+      }
+
+      const roleDelete = await prisma.role.delete({ where: { id } });
       Message.ok(
         res,
         `Delete role and the relation table with roleId ${id} is success`,
-        trx
+        roleDelete
       );
     } catch (error) {
       Message.unprocessable(res, {

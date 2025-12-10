@@ -17,8 +17,8 @@ model User {
   updated_at  DateTime  @default(now()) @updatedAt
   deleted_at  DateTime?
 
-  role Role @relation(fields: [roleId], references: [id])
-  accessToken AccessToken[]
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  accessToken AccessToken?
 }
 
 model Role {
@@ -26,7 +26,6 @@ model Role {
   name String
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
-  deleted_at DateTime?
 
   user User[]
   roleAnchor RoleAnchor[]
@@ -34,13 +33,13 @@ model Role {
 
 model AccessToken {
   id          Int       @id @db.UnsignedInt @default(autoincrement())
-  userId      Int       @db.UnsignedInt
+  userId      Int       @db.UnsignedInt @unique
   token       String    @unique
   expired_at  DateTime?
   revoked_at  DateTime?
   created_at  DateTime  @default(now())
 
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Anchor {
@@ -50,7 +49,6 @@ model Anchor {
   url         String
   created_at  DateTime  @default(now())
   updated_at  DateTime  @default(now()) @updatedAt
-  deleted_at  DateTime?
 
   roleAnchor RoleAnchor[]
 }
@@ -62,9 +60,8 @@ model RoleAnchor {
   merge       String    @unique
   created_at  DateTime  @default(now())
   updated_at  DateTime  @default(now()) @updatedAt
-  deleted_at  DateTime?
 
-  role    Role    @relation(fields: [roleId], references: [id])
-  anchor  Anchor  @relation(fields: [anchorId], references: [id])
+  role    Role    @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  anchor  Anchor  @relation(fields: [anchorId], references: [id], onDelete: Cascade)
 }
 

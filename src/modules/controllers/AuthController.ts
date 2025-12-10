@@ -12,7 +12,7 @@ export class AuthController {
       const password = req.body.password;
       const user = await prisma.user.findUnique({
         where: { email, AND: { deleted_at: null } },
-        omit: { created_at: true, updated_at: true, deleted_at: true },
+        omit: { updated_at: true, deleted_at: true },
       });
 
       if (!user) {
@@ -26,6 +26,7 @@ export class AuthController {
       }
 
       const { password: userPassword, ...payload } = user;
+
       const refreshToken = JsonWebToken.signRefreshToken(payload);
       const accessToken = JsonWebToken.signAccessToken(payload);
 
@@ -40,12 +41,18 @@ export class AuthController {
       const expired_at = new Date();
       expired_at.setDate(expired_at.getDate() + 7);
 
-      await prisma.accessToken.create({
-        data: {
+      await prisma.accessToken.upsert({
+        create: {
           userId: user.id,
           token: refreshToken,
           expired_at,
         },
+        update: {
+          userId: user.id,
+          token: refreshToken,
+          expired_at,
+        },
+        where: { userId: user.id, token: refreshToken },
       });
 
       return Message.ok(res, "Login berhasil", { user, accessToken });

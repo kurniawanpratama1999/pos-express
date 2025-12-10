@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Message } from "../utils/Message";
 import { prisma } from "../../lib/prisma";
+import { roleCache } from "../cache/roleCache";
 
 export class RoleMiddleware {
   public static async handle(req: Request, res: Response, next: NextFunction) {
@@ -24,12 +25,25 @@ export class RoleMiddleware {
         return next();
       }
 
-      const roleAnchors = await prisma.roleAnchor.findMany({
-        where: { roleId },
-        include: {
-          anchor: true,
-        },
-      });
+      const cacheKey = `roleAnchors:${roleId}`;
+      let cached = roleCache.get(cacheKey);
+
+      let roleAnchors: any[];
+      if (cached && cached.expired > Date.now()) {
+        roleAnchors = cached.data;
+      } else {
+        roleAnchors = await prisma.roleAnchor.findMany({
+          where: { roleId },
+          include: {
+            anchor: true,
+          },
+        });
+
+        roleCache.set(cacheKey, {
+          data: roleAnchors,
+          expired: Date.now() + 24 * 60 * 60 * 1000,
+        });
+      }
 
       const urls = roleAnchors.map((roleAnchor) => roleAnchor.anchor.url);
 
