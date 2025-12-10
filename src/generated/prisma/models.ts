@@ -9,5 +9,8 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
+export type * from './models/Role'
 export type * from './models/AccessToken'
+export type * from './models/Anchor'
+export type * from './models/RoleAnchor'
 export type * from './commonInputTypes'

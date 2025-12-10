@@ -52,7 +52,10 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  AccessToken: 'AccessToken'
+  Role: 'Role',
+  AccessToken: 'AccessToken',
+  Anchor: 'Anchor',
+  RoleAnchor: 'RoleAnchor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,8 +76,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  email: 'email',
+  roleId: 'roleId',
   name: 'name',
+  email: 'email',
   password: 'password',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -82,6 +86,17 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const RoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
 
 
 export const AccessTokenScalarFieldEnum = {
@@ -94,6 +109,32 @@ export const AccessTokenScalarFieldEnum = {
 } as const
 
 export type AccessTokenScalarFieldEnum = (typeof AccessTokenScalarFieldEnum)[keyof typeof AccessTokenScalarFieldEnum]
+
+
+export const AnchorScalarFieldEnum = {
+  id: 'id',
+  icon: 'icon',
+  name: 'name',
+  url: 'url',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type AnchorScalarFieldEnum = (typeof AnchorScalarFieldEnum)[keyof typeof AnchorScalarFieldEnum]
+
+
+export const RoleAnchorScalarFieldEnum = {
+  id: 'id',
+  roleId: 'roleId',
+  anchorId: 'anchorId',
+  merge: 'merge',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type RoleAnchorScalarFieldEnum = (typeof RoleAnchorScalarFieldEnum)[keyof typeof RoleAnchorScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -113,12 +154,19 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const UserOrderByRelevanceFieldEnum = {
-  email: 'email',
   name: 'name',
+  email: 'email',
   password: 'password'
 } as const
 
 export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+export const RoleOrderByRelevanceFieldEnum = {
+  name: 'name'
+} as const
+
+export type RoleOrderByRelevanceFieldEnum = (typeof RoleOrderByRelevanceFieldEnum)[keyof typeof RoleOrderByRelevanceFieldEnum]
 
 
 export const AccessTokenOrderByRelevanceFieldEnum = {
@@ -126,4 +174,20 @@ export const AccessTokenOrderByRelevanceFieldEnum = {
 } as const
 
 export type AccessTokenOrderByRelevanceFieldEnum = (typeof AccessTokenOrderByRelevanceFieldEnum)[keyof typeof AccessTokenOrderByRelevanceFieldEnum]
+
+
+export const AnchorOrderByRelevanceFieldEnum = {
+  icon: 'icon',
+  name: 'name',
+  url: 'url'
+} as const
+
+export type AnchorOrderByRelevanceFieldEnum = (typeof AnchorOrderByRelevanceFieldEnum)[keyof typeof AnchorOrderByRelevanceFieldEnum]
+
+
+export const RoleAnchorOrderByRelevanceFieldEnum = {
+  merge: 'merge'
+} as const
+
+export type RoleAnchorOrderByRelevanceFieldEnum = (typeof RoleAnchorOrderByRelevanceFieldEnum)[keyof typeof RoleAnchorOrderByRelevanceFieldEnum]
 

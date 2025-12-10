@@ -7,7 +7,7 @@ export class Validate {
     return (req: Request, res: Response, next: NextFunction) => {
       try {
         req.body = schema.parse(req.body);
-        next();
+        return next();
       } catch (error: any) {
         return Message.conflict(res, JSON.parse(error.message));
       }

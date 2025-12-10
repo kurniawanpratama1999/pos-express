@@ -1,0 +1,23 @@
+import { Router } from "express";
+import { AnchorController } from "../controllers/AnchorController";
+import { Validate } from "../utils/Validate";
+import { AnchorValidation } from "../validations/anchor.validation";
+
+const AnchorRoute = Router();
+
+AnchorRoute.get("/", AnchorController.index);
+AnchorRoute.get("/:id", AnchorController.show);
+
+AnchorRoute.post(
+  "/",
+  Validate.handle(AnchorValidation.storeUpdate()),
+  AnchorController.store
+);
+
+AnchorRoute.put(
+  "/:id",
+  Validate.handle(AnchorValidation.storeUpdate()),
+  AnchorController.update
+);
+
+AnchorRoute.delete("/:id", AnchorController.destroy);

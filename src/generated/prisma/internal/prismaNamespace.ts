@@ -385,7 +385,10 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  AccessToken: 'AccessToken'
+  Role: 'Role',
+  AccessToken: 'AccessToken',
+  Anchor: 'Anchor',
+  RoleAnchor: 'RoleAnchor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "accessToken"
+    modelProps: "user" | "role" | "accessToken" | "anchor" | "roleAnchor"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -471,6 +474,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Role: {
+      payload: Prisma.$RolePayload<ExtArgs>
+      fields: Prisma.RoleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RoleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RoleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
+        }
+        findFirst: {
+          args: Prisma.RoleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RoleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
+        }
+        findMany: {
+          args: Prisma.RoleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>[]
+        }
+        create: {
+          args: Prisma.RoleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
+        }
+        createMany: {
+          args: Prisma.RoleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.RoleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
+        }
+        update: {
+          args: Prisma.RoleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
+        }
+        deleteMany: {
+          args: Prisma.RoleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RoleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.RoleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolePayload>
+        }
+        aggregate: {
+          args: Prisma.RoleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRole>
+        }
+        groupBy: {
+          args: Prisma.RoleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RoleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RoleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RoleCountAggregateOutputType> | number
+        }
+      }
+    }
     AccessToken: {
       payload: Prisma.$AccessTokenPayload<ExtArgs>
       fields: Prisma.AccessTokenFieldRefs
@@ -537,6 +606,138 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Anchor: {
+      payload: Prisma.$AnchorPayload<ExtArgs>
+      fields: Prisma.AnchorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AnchorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AnchorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload>
+        }
+        findFirst: {
+          args: Prisma.AnchorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AnchorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload>
+        }
+        findMany: {
+          args: Prisma.AnchorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload>[]
+        }
+        create: {
+          args: Prisma.AnchorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload>
+        }
+        createMany: {
+          args: Prisma.AnchorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.AnchorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload>
+        }
+        update: {
+          args: Prisma.AnchorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload>
+        }
+        deleteMany: {
+          args: Prisma.AnchorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AnchorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.AnchorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnchorPayload>
+        }
+        aggregate: {
+          args: Prisma.AnchorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAnchor>
+        }
+        groupBy: {
+          args: Prisma.AnchorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnchorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AnchorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AnchorCountAggregateOutputType> | number
+        }
+      }
+    }
+    RoleAnchor: {
+      payload: Prisma.$RoleAnchorPayload<ExtArgs>
+      fields: Prisma.RoleAnchorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RoleAnchorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RoleAnchorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload>
+        }
+        findFirst: {
+          args: Prisma.RoleAnchorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RoleAnchorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload>
+        }
+        findMany: {
+          args: Prisma.RoleAnchorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload>[]
+        }
+        create: {
+          args: Prisma.RoleAnchorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload>
+        }
+        createMany: {
+          args: Prisma.RoleAnchorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.RoleAnchorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload>
+        }
+        update: {
+          args: Prisma.RoleAnchorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload>
+        }
+        deleteMany: {
+          args: Prisma.RoleAnchorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RoleAnchorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.RoleAnchorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RoleAnchorPayload>
+        }
+        aggregate: {
+          args: Prisma.RoleAnchorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRoleAnchor>
+        }
+        groupBy: {
+          args: Prisma.RoleAnchorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RoleAnchorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RoleAnchorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RoleAnchorCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -578,8 +779,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  email: 'email',
+  roleId: 'roleId',
   name: 'name',
+  email: 'email',
   password: 'password',
   created_at: 'created_at',
   updated_at: 'updated_at',
@@ -587,6 +789,17 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const RoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
 
 
 export const AccessTokenScalarFieldEnum = {
@@ -599,6 +812,32 @@ export const AccessTokenScalarFieldEnum = {
 } as const
 
 export type AccessTokenScalarFieldEnum = (typeof AccessTokenScalarFieldEnum)[keyof typeof AccessTokenScalarFieldEnum]
+
+
+export const AnchorScalarFieldEnum = {
+  id: 'id',
+  icon: 'icon',
+  name: 'name',
+  url: 'url',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type AnchorScalarFieldEnum = (typeof AnchorScalarFieldEnum)[keyof typeof AnchorScalarFieldEnum]
+
+
+export const RoleAnchorScalarFieldEnum = {
+  id: 'id',
+  roleId: 'roleId',
+  anchorId: 'anchorId',
+  merge: 'merge',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type RoleAnchorScalarFieldEnum = (typeof RoleAnchorScalarFieldEnum)[keyof typeof RoleAnchorScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -618,12 +857,19 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const UserOrderByRelevanceFieldEnum = {
-  email: 'email',
   name: 'name',
+  email: 'email',
   password: 'password'
 } as const
 
 export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+export const RoleOrderByRelevanceFieldEnum = {
+  name: 'name'
+} as const
+
+export type RoleOrderByRelevanceFieldEnum = (typeof RoleOrderByRelevanceFieldEnum)[keyof typeof RoleOrderByRelevanceFieldEnum]
 
 
 export const AccessTokenOrderByRelevanceFieldEnum = {
@@ -631,6 +877,22 @@ export const AccessTokenOrderByRelevanceFieldEnum = {
 } as const
 
 export type AccessTokenOrderByRelevanceFieldEnum = (typeof AccessTokenOrderByRelevanceFieldEnum)[keyof typeof AccessTokenOrderByRelevanceFieldEnum]
+
+
+export const AnchorOrderByRelevanceFieldEnum = {
+  icon: 'icon',
+  name: 'name',
+  url: 'url'
+} as const
+
+export type AnchorOrderByRelevanceFieldEnum = (typeof AnchorOrderByRelevanceFieldEnum)[keyof typeof AnchorOrderByRelevanceFieldEnum]
+
+
+export const RoleAnchorOrderByRelevanceFieldEnum = {
+  merge: 'merge'
+} as const
+
+export type RoleAnchorOrderByRelevanceFieldEnum = (typeof RoleAnchorOrderByRelevanceFieldEnum)[keyof typeof RoleAnchorOrderByRelevanceFieldEnum]
 
 
 
@@ -762,7 +1024,10 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  role?: Prisma.RoleOmit
   accessToken?: Prisma.AccessTokenOmit
+  anchor?: Prisma.AnchorOmit
+  roleAnchor?: Prisma.RoleAnchorOmit
 }
 
 /* Types for Logging */

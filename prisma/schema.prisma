@@ -8,23 +8,63 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String?
-  password String
+  id          Int       @id @db.UnsignedInt @default(autoincrement())
+  roleId      Int       @db.UnsignedInt
+  name        String
+  email       String    @unique
+  password    String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+  deleted_at  DateTime?
+
+  role Role @relation(fields: [roleId], references: [id])
+  accessToken AccessToken[]
+}
+
+model Role {
+  id Int @id @db.UnsignedInt @default(autoincrement())
+  name String
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
   deleted_at DateTime?
 
-  accessToken AccessToken[]
+  user User[]
+  roleAnchor RoleAnchor[]
 }
 
 model AccessToken {
-  id          Int       @id @default(autoincrement())
-  user        User      @relation(fields: [userId], references: [id])
-  userId      Int
+  id          Int       @id @db.UnsignedInt @default(autoincrement())
+  userId      Int       @db.UnsignedInt
   token       String    @unique
   expired_at  DateTime?
   revoked_at  DateTime?
   created_at  DateTime  @default(now())
+
+  user        User      @relation(fields: [userId], references: [id])
 }
+
+model Anchor {
+  id          Int       @id @db.UnsignedInt @default(autoincrement())
+  icon        String
+  name        String
+  url         String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+  deleted_at  DateTime?
+
+  roleAnchor RoleAnchor[]
+}
+
+model RoleAnchor {
+  id          Int       @id @db.UnsignedInt @default(autoincrement())
+  roleId      Int       @db.UnsignedInt
+  anchorId    Int       @db.UnsignedInt
+  merge       String    @unique
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+  deleted_at  DateTime?
+
+  role    Role    @relation(fields: [roleId], references: [id])
+  anchor  Anchor  @relation(fields: [anchorId], references: [id])
+}
+

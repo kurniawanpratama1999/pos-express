@@ -2,15 +2,22 @@ import { Request, Response } from "express";
 import { prisma } from "../../lib/prisma";
 import { Message } from "../utils/Message";
 import { Hash } from "../utils/Hash";
-import { JsonWebToken } from "../utils/Jwt";
 
 export class UserController {
   public static async index(req: Request, res: Response) {
     try {
       const users = await prisma.user.findMany({
+        include: {
+          role: {
+            select: {
+              name: true,
+            },
+          },
+        },
         where: { deleted_at: null },
         omit: { password: true },
       });
+
       return Message.ok(res, "Get all user is success", users);
     } catch (error: any) {
       return Message.error(res, { message: error.message });
@@ -20,6 +27,13 @@ export class UserController {
   public static async show(req: Request, res: Response) {
     const id = Number(req.params.id);
     const user = await prisma.user.findUnique({
+      include: {
+        role: {
+          select: {
+            name: true,
+          },
+        },
+      },
       where: { id },
       omit: { password: true },
     });
