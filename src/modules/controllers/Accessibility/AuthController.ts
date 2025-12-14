@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { prisma } from "../../lib/prisma";
-import { Message } from "../utils/Message";
-import { Hash } from "../utils/Hash";
-import { JsonWebToken } from "../utils/Jwt";
+import { prisma } from "../../../lib/prisma";
+import { Message } from "../../utils/Message";
+import { Hash } from "../../utils/Hash";
+import { JsonWebToken } from "../../utils/Jwt";
 import "dotenv/config";
 
 export class AuthController {

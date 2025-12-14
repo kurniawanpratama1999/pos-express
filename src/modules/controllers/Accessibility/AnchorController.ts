@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { prisma } from "../../lib/prisma";
-import { Message } from "../utils/Message";
+import { prisma } from "../../../lib/prisma";
+import { Message } from "../../utils/Message";
 
 export class AnchorController {
   public static async index(req: Request, res: Response) {
@@ -48,6 +48,12 @@ export class AnchorController {
   public static async destroy(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
+
+      if ([1, 2, 3].includes(id)) {
+        return Message.badRequest(res, {
+          message: "cannot delete for id 1",
+        });
+      }
       const anchor = await prisma.anchor.delete({ where: { id } });
       return Message.ok(res, `update anchor with id-${id} is success`, anchor);
     } catch (error: any) {

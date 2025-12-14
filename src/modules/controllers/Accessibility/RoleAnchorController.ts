@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { Message } from "../utils/Message";
-import { prisma } from "../../lib/prisma";
-import { roleCache } from "../cache/roleCache";
+import { Message } from "../../utils/Message";
+import { prisma } from "../../../lib/prisma";
+import { roleCache } from "../../cache/roleCache";
 
 export class RoleAnchorController {
   public static async index(req: Request, res: Response) {

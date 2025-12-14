@@ -244,16 +244,16 @@ export type AccessTokenOrderByWithRelationInput = {
 
 export type AccessTokenWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  userId?: number
   token?: string
   AND?: Prisma.AccessTokenWhereInput | Prisma.AccessTokenWhereInput[]
   OR?: Prisma.AccessTokenWhereInput[]
   NOT?: Prisma.AccessTokenWhereInput | Prisma.AccessTokenWhereInput[]
-  userId?: Prisma.IntFilter<"AccessToken"> | number
   expired_at?: Prisma.DateTimeNullableFilter<"AccessToken"> | Date | string | null
   revoked_at?: Prisma.DateTimeNullableFilter<"AccessToken"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"AccessToken"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "token">
+}, "id" | "userId" | "token">
 
 export type AccessTokenOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -340,14 +340,9 @@ export type AccessTokenUncheckedUpdateManyInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type AccessTokenListRelationFilter = {
-  every?: Prisma.AccessTokenWhereInput
-  some?: Prisma.AccessTokenWhereInput
-  none?: Prisma.AccessTokenWhereInput
-}
-
-export type AccessTokenOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type AccessTokenNullableScalarRelationFilter = {
+  is?: Prisma.AccessTokenWhereInput | null
+  isNot?: Prisma.AccessTokenWhereInput | null
 }
 
 export type AccessTokenOrderByRelevanceInput = {
@@ -393,46 +388,36 @@ export type AccessTokenSumOrderByAggregateInput = {
   userId?: Prisma.SortOrder
 }
 
-export type AccessTokenCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput> | Prisma.AccessTokenCreateWithoutUserInput[] | Prisma.AccessTokenUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.AccessTokenCreateOrConnectWithoutUserInput | Prisma.AccessTokenCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.AccessTokenCreateManyUserInputEnvelope
-  connect?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
+export type AccessTokenCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.AccessTokenCreateOrConnectWithoutUserInput
+  connect?: Prisma.AccessTokenWhereUniqueInput
 }
 
-export type AccessTokenUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput> | Prisma.AccessTokenCreateWithoutUserInput[] | Prisma.AccessTokenUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.AccessTokenCreateOrConnectWithoutUserInput | Prisma.AccessTokenCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.AccessTokenCreateManyUserInputEnvelope
-  connect?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
+export type AccessTokenUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.AccessTokenCreateOrConnectWithoutUserInput
+  connect?: Prisma.AccessTokenWhereUniqueInput
 }
 
-export type AccessTokenUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput> | Prisma.AccessTokenCreateWithoutUserInput[] | Prisma.AccessTokenUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.AccessTokenCreateOrConnectWithoutUserInput | Prisma.AccessTokenCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.AccessTokenUpsertWithWhereUniqueWithoutUserInput | Prisma.AccessTokenUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.AccessTokenCreateManyUserInputEnvelope
-  set?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
-  disconnect?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
-  delete?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
-  connect?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
-  update?: Prisma.AccessTokenUpdateWithWhereUniqueWithoutUserInput | Prisma.AccessTokenUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.AccessTokenUpdateManyWithWhereWithoutUserInput | Prisma.AccessTokenUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.AccessTokenScalarWhereInput | Prisma.AccessTokenScalarWhereInput[]
+export type AccessTokenUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.AccessTokenCreateOrConnectWithoutUserInput
+  upsert?: Prisma.AccessTokenUpsertWithoutUserInput
+  disconnect?: Prisma.AccessTokenWhereInput | boolean
+  delete?: Prisma.AccessTokenWhereInput | boolean
+  connect?: Prisma.AccessTokenWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccessTokenUpdateToOneWithWhereWithoutUserInput, Prisma.AccessTokenUpdateWithoutUserInput>, Prisma.AccessTokenUncheckedUpdateWithoutUserInput>
 }
 
-export type AccessTokenUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput> | Prisma.AccessTokenCreateWithoutUserInput[] | Prisma.AccessTokenUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.AccessTokenCreateOrConnectWithoutUserInput | Prisma.AccessTokenCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.AccessTokenUpsertWithWhereUniqueWithoutUserInput | Prisma.AccessTokenUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.AccessTokenCreateManyUserInputEnvelope
-  set?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
-  disconnect?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
-  delete?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
-  connect?: Prisma.AccessTokenWhereUniqueInput | Prisma.AccessTokenWhereUniqueInput[]
-  update?: Prisma.AccessTokenUpdateWithWhereUniqueWithoutUserInput | Prisma.AccessTokenUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.AccessTokenUpdateManyWithWhereWithoutUserInput | Prisma.AccessTokenUpdateManyWithWhereWithoutUserInput[]
-  deleteMany?: Prisma.AccessTokenScalarWhereInput | Prisma.AccessTokenScalarWhereInput[]
+export type AccessTokenUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.AccessTokenCreateOrConnectWithoutUserInput
+  upsert?: Prisma.AccessTokenUpsertWithoutUserInput
+  disconnect?: Prisma.AccessTokenWhereInput | boolean
+  delete?: Prisma.AccessTokenWhereInput | boolean
+  connect?: Prisma.AccessTokenWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccessTokenUpdateToOneWithWhereWithoutUserInput, Prisma.AccessTokenUpdateWithoutUserInput>, Prisma.AccessTokenUncheckedUpdateWithoutUserInput>
 }
 
 export type AccessTokenCreateWithoutUserInput = {
@@ -455,45 +440,15 @@ export type AccessTokenCreateOrConnectWithoutUserInput = {
   create: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput>
 }
 
-export type AccessTokenCreateManyUserInputEnvelope = {
-  data: Prisma.AccessTokenCreateManyUserInput | Prisma.AccessTokenCreateManyUserInput[]
-  skipDuplicates?: boolean
-}
-
-export type AccessTokenUpsertWithWhereUniqueWithoutUserInput = {
-  where: Prisma.AccessTokenWhereUniqueInput
+export type AccessTokenUpsertWithoutUserInput = {
   update: Prisma.XOR<Prisma.AccessTokenUpdateWithoutUserInput, Prisma.AccessTokenUncheckedUpdateWithoutUserInput>
   create: Prisma.XOR<Prisma.AccessTokenCreateWithoutUserInput, Prisma.AccessTokenUncheckedCreateWithoutUserInput>
+  where?: Prisma.AccessTokenWhereInput
 }
 
-export type AccessTokenUpdateWithWhereUniqueWithoutUserInput = {
-  where: Prisma.AccessTokenWhereUniqueInput
+export type AccessTokenUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.AccessTokenWhereInput
   data: Prisma.XOR<Prisma.AccessTokenUpdateWithoutUserInput, Prisma.AccessTokenUncheckedUpdateWithoutUserInput>
-}
-
-export type AccessTokenUpdateManyWithWhereWithoutUserInput = {
-  where: Prisma.AccessTokenScalarWhereInput
-  data: Prisma.XOR<Prisma.AccessTokenUpdateManyMutationInput, Prisma.AccessTokenUncheckedUpdateManyWithoutUserInput>
-}
-
-export type AccessTokenScalarWhereInput = {
-  AND?: Prisma.AccessTokenScalarWhereInput | Prisma.AccessTokenScalarWhereInput[]
-  OR?: Prisma.AccessTokenScalarWhereInput[]
-  NOT?: Prisma.AccessTokenScalarWhereInput | Prisma.AccessTokenScalarWhereInput[]
-  id?: Prisma.IntFilter<"AccessToken"> | number
-  userId?: Prisma.IntFilter<"AccessToken"> | number
-  token?: Prisma.StringFilter<"AccessToken"> | string
-  expired_at?: Prisma.DateTimeNullableFilter<"AccessToken"> | Date | string | null
-  revoked_at?: Prisma.DateTimeNullableFilter<"AccessToken"> | Date | string | null
-  created_at?: Prisma.DateTimeFilter<"AccessToken"> | Date | string
-}
-
-export type AccessTokenCreateManyUserInput = {
-  id?: number
-  token: string
-  expired_at?: Date | string | null
-  revoked_at?: Date | string | null
-  created_at?: Date | string
 }
 
 export type AccessTokenUpdateWithoutUserInput = {
@@ -504,14 +459,6 @@ export type AccessTokenUpdateWithoutUserInput = {
 }
 
 export type AccessTokenUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  token?: Prisma.StringFieldUpdateOperationsInput | string
-  expired_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  revoked_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type AccessTokenUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   token?: Prisma.StringFieldUpdateOperationsInput | string
   expired_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null

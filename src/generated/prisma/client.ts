@@ -62,3 +62,43 @@ export type Anchor = Prisma.AnchorModel
  * 
  */
 export type RoleAnchor = Prisma.RoleAnchorModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model Variant
+ * 
+ */
+export type Variant = Prisma.VariantModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model OrderDetail
+ * 
+ */
+export type OrderDetail = Prisma.OrderDetailModel
+/**
+ * Model Discount
+ * 
+ */
+export type Discount = Prisma.DiscountModel
+/**
+ * Model DiscountCondition
+ * 
+ */
+export type DiscountCondition = Prisma.DiscountConditionModel
+/**
+ * Model Tax
+ * 
+ */
+export type Tax = Prisma.TaxModel

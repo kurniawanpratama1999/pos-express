@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { Validate } from "../utils/Validate";
 import { AuthValidation } from "../validations/auth.validation";
-import { AuthController } from "../controllers/AuthController";
+import { AuthController } from "../controllers/Accessibility/AuthController";
 
 const AuthRoute = Router();
 

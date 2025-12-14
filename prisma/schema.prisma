@@ -9,10 +9,12 @@ datasource db {
 
 model User {
   id          Int       @id @db.UnsignedInt @default(autoincrement())
+
   roleId      Int       @db.UnsignedInt
   name        String
   email       String    @unique
   password    String
+
   created_at  DateTime  @default(now())
   updated_at  DateTime  @default(now()) @updatedAt
   deleted_at  DateTime?
@@ -23,7 +25,9 @@ model User {
 
 model Role {
   id Int @id @db.UnsignedInt @default(autoincrement())
+
   name String
+
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 
@@ -33,10 +37,12 @@ model Role {
 
 model AccessToken {
   id          Int       @id @db.UnsignedInt @default(autoincrement())
+
   userId      Int       @db.UnsignedInt @unique
   token       String    @unique
   expired_at  DateTime?
   revoked_at  DateTime?
+  
   created_at  DateTime  @default(now())
 
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -44,9 +50,11 @@ model AccessToken {
 
 model Anchor {
   id          Int       @id @db.UnsignedInt @default(autoincrement())
+
   icon        String
   name        String
   url         String
+
   created_at  DateTime  @default(now())
   updated_at  DateTime  @default(now()) @updatedAt
 
@@ -55,13 +63,150 @@ model Anchor {
 
 model RoleAnchor {
   id          Int       @id @db.UnsignedInt @default(autoincrement())
+
   roleId      Int       @db.UnsignedInt
   anchorId    Int       @db.UnsignedInt
-  merge       String    @unique
+
   created_at  DateTime  @default(now())
   updated_at  DateTime  @default(now()) @updatedAt
 
   role    Role    @relation(fields: [roleId], references: [id], onDelete: Cascade)
   anchor  Anchor  @relation(fields: [anchorId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, anchorId])
 }
 
+model Category {
+  id   Int       @id @db.UnsignedInt @default(autoincrement())
+
+  name String
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+
+  product Product[]
+}
+
+model Product {
+  id   Int       @id @db.UnsignedInt @default(autoincrement())
+
+  categoryId Int @db.UnsignedInt
+  name String
+  price Decimal
+  description String
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+
+  variant Variant[]
+  condition DiscountCondition[]
+  detail OrderDetail[]
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model Variant {
+  id   Int       @id @db.UnsignedInt @default(autoincrement())
+
+  productId Int @db.UnsignedInt
+  name String
+  price Decimal
+  description String
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id          Int    @id @db.UnsignedInt @default(autoincrement())
+
+  code        String
+  subtotal    Decimal
+  discount    Decimal
+  tax         Decimal
+
+  total       Decimal
+  payment     Decimal
+  change      Decimal
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+
+  detail OrderDetail[]
+}
+
+model OrderDetail {
+  id   Int       @id @db.UnsignedInt @default(autoincrement())
+
+  orderId Int @db.UnsignedInt
+  productId Int @db.UnsignedInt
+  price Decimal
+  quantity Int
+  subtotal Decimal
+  discount Decimal
+  tax Decimal
+  total Decimal
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+enum DiscountApplyTo {
+  ORDER
+  PRODUCT
+}
+
+model Discount {
+  id   Int       @id @db.UnsignedInt @default(autoincrement())
+  
+  name String
+  type DiscountType
+  percentage Decimal?
+  amount Decimal?
+
+  is_stackable  Boolean   @default(false)
+  priority      Int       @default(100)
+  max_discount  Decimal?
+
+  apply_to      DiscountApplyTo
+
+  is_active Boolean @default(true)
+
+  start_at DateTime
+  end_at DateTime?
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+
+  condition DiscountCondition[]
+}
+
+model DiscountCondition {
+  id   Int       @id @db.UnsignedInt @default(autoincrement())
+
+  discountId Int @db.UnsignedInt
+  productId Int @db.UnsignedInt
+  min_quantity Int
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+
+  discount Discount @relation(fields: [discountId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@unique([discountId, productId])
+}
+
+model Tax {
+  id   Int       @id @db.UnsignedInt @default(autoincrement())
+  total Decimal
+}

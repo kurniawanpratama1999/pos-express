@@ -28,22 +28,19 @@ async function main() {
         {
           roleId: 1,
           anchorId: 1,
-          merge: "1-1",
         },
         {
           roleId: 1,
           anchorId: 2,
-          merge: "1-2",
         },
         {
           roleId: 1,
           anchorId: 3,
-          merge: "1-3",
         },
       ],
     });
 
-    return user;
+    return roleAnchor;
   });
 }
 

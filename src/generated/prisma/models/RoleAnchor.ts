@@ -42,30 +42,24 @@ export type RoleAnchorMinAggregateOutputType = {
   id: number | null
   roleId: number | null
   anchorId: number | null
-  merge: string | null
   created_at: Date | null
   updated_at: Date | null
-  deleted_at: Date | null
 }
 
 export type RoleAnchorMaxAggregateOutputType = {
   id: number | null
   roleId: number | null
   anchorId: number | null
-  merge: string | null
   created_at: Date | null
   updated_at: Date | null
-  deleted_at: Date | null
 }
 
 export type RoleAnchorCountAggregateOutputType = {
   id: number
   roleId: number
   anchorId: number
-  merge: number
   created_at: number
   updated_at: number
-  deleted_at: number
   _all: number
 }
 
@@ -86,30 +80,24 @@ export type RoleAnchorMinAggregateInputType = {
   id?: true
   roleId?: true
   anchorId?: true
-  merge?: true
   created_at?: true
   updated_at?: true
-  deleted_at?: true
 }
 
 export type RoleAnchorMaxAggregateInputType = {
   id?: true
   roleId?: true
   anchorId?: true
-  merge?: true
   created_at?: true
   updated_at?: true
-  deleted_at?: true
 }
 
 export type RoleAnchorCountAggregateInputType = {
   id?: true
   roleId?: true
   anchorId?: true
-  merge?: true
   created_at?: true
   updated_at?: true
-  deleted_at?: true
   _all?: true
 }
 
@@ -203,10 +191,8 @@ export type RoleAnchorGroupByOutputType = {
   id: number
   roleId: number
   anchorId: number
-  merge: string
   created_at: Date
   updated_at: Date
-  deleted_at: Date | null
   _count: RoleAnchorCountAggregateOutputType | null
   _avg: RoleAnchorAvgAggregateOutputType | null
   _sum: RoleAnchorSumAggregateOutputType | null
@@ -236,10 +222,8 @@ export type RoleAnchorWhereInput = {
   id?: Prisma.IntFilter<"RoleAnchor"> | number
   roleId?: Prisma.IntFilter<"RoleAnchor"> | number
   anchorId?: Prisma.IntFilter<"RoleAnchor"> | number
-  merge?: Prisma.StringFilter<"RoleAnchor"> | string
   created_at?: Prisma.DateTimeFilter<"RoleAnchor"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"RoleAnchor"> | Date | string
-  deleted_at?: Prisma.DateTimeNullableFilter<"RoleAnchor"> | Date | string | null
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
   anchor?: Prisma.XOR<Prisma.AnchorScalarRelationFilter, Prisma.AnchorWhereInput>
 }
@@ -248,18 +232,15 @@ export type RoleAnchorOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   anchorId?: Prisma.SortOrder
-  merge?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.RoleOrderByWithRelationInput
   anchor?: Prisma.AnchorOrderByWithRelationInput
-  _relevance?: Prisma.RoleAnchorOrderByRelevanceInput
 }
 
 export type RoleAnchorWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  merge?: string
+  roleId_anchorId?: Prisma.RoleAnchorRoleIdAnchorIdCompoundUniqueInput
   AND?: Prisma.RoleAnchorWhereInput | Prisma.RoleAnchorWhereInput[]
   OR?: Prisma.RoleAnchorWhereInput[]
   NOT?: Prisma.RoleAnchorWhereInput | Prisma.RoleAnchorWhereInput[]
@@ -267,19 +248,16 @@ export type RoleAnchorWhereUniqueInput = Prisma.AtLeast<{
   anchorId?: Prisma.IntFilter<"RoleAnchor"> | number
   created_at?: Prisma.DateTimeFilter<"RoleAnchor"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"RoleAnchor"> | Date | string
-  deleted_at?: Prisma.DateTimeNullableFilter<"RoleAnchor"> | Date | string | null
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
   anchor?: Prisma.XOR<Prisma.AnchorScalarRelationFilter, Prisma.AnchorWhereInput>
-}, "id" | "merge">
+}, "id" | "roleId_anchorId">
 
 export type RoleAnchorOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   anchorId?: Prisma.SortOrder
-  merge?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.RoleAnchorCountOrderByAggregateInput
   _avg?: Prisma.RoleAnchorAvgOrderByAggregateInput
   _max?: Prisma.RoleAnchorMaxOrderByAggregateInput
@@ -294,17 +272,13 @@ export type RoleAnchorScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"RoleAnchor"> | number
   roleId?: Prisma.IntWithAggregatesFilter<"RoleAnchor"> | number
   anchorId?: Prisma.IntWithAggregatesFilter<"RoleAnchor"> | number
-  merge?: Prisma.StringWithAggregatesFilter<"RoleAnchor"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"RoleAnchor"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"RoleAnchor"> | Date | string
-  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"RoleAnchor"> | Date | string | null
 }
 
 export type RoleAnchorCreateInput = {
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
   role: Prisma.RoleCreateNestedOneWithoutRoleAnchorInput
   anchor: Prisma.AnchorCreateNestedOneWithoutRoleAnchorInput
 }
@@ -313,17 +287,13 @@ export type RoleAnchorUncheckedCreateInput = {
   id?: number
   roleId: number
   anchorId: number
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type RoleAnchorUpdateInput = {
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.RoleUpdateOneRequiredWithoutRoleAnchorNestedInput
   anchor?: Prisma.AnchorUpdateOneRequiredWithoutRoleAnchorNestedInput
 }
@@ -332,37 +302,29 @@ export type RoleAnchorUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   anchorId?: Prisma.IntFieldUpdateOperationsInput | number
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RoleAnchorCreateManyInput = {
   id?: number
   roleId: number
   anchorId: number
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type RoleAnchorUpdateManyMutationInput = {
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RoleAnchorUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   anchorId?: Prisma.IntFieldUpdateOperationsInput | number
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RoleAnchorListRelationFilter = {
@@ -375,20 +337,17 @@ export type RoleAnchorOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type RoleAnchorOrderByRelevanceInput = {
-  fields: Prisma.RoleAnchorOrderByRelevanceFieldEnum | Prisma.RoleAnchorOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
+export type RoleAnchorRoleIdAnchorIdCompoundUniqueInput = {
+  roleId: number
+  anchorId: number
 }
 
 export type RoleAnchorCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   anchorId?: Prisma.SortOrder
-  merge?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
 }
 
 export type RoleAnchorAvgOrderByAggregateInput = {
@@ -401,20 +360,16 @@ export type RoleAnchorMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   anchorId?: Prisma.SortOrder
-  merge?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
 }
 
 export type RoleAnchorMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
   anchorId?: Prisma.SortOrder
-  merge?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
 }
 
 export type RoleAnchorSumOrderByAggregateInput = {
@@ -508,20 +463,16 @@ export type RoleAnchorUncheckedUpdateManyWithoutAnchorNestedInput = {
 }
 
 export type RoleAnchorCreateWithoutRoleInput = {
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
   anchor: Prisma.AnchorCreateNestedOneWithoutRoleAnchorInput
 }
 
 export type RoleAnchorUncheckedCreateWithoutRoleInput = {
   id?: number
   anchorId: number
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type RoleAnchorCreateOrConnectWithoutRoleInput = {
@@ -557,27 +508,21 @@ export type RoleAnchorScalarWhereInput = {
   id?: Prisma.IntFilter<"RoleAnchor"> | number
   roleId?: Prisma.IntFilter<"RoleAnchor"> | number
   anchorId?: Prisma.IntFilter<"RoleAnchor"> | number
-  merge?: Prisma.StringFilter<"RoleAnchor"> | string
   created_at?: Prisma.DateTimeFilter<"RoleAnchor"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"RoleAnchor"> | Date | string
-  deleted_at?: Prisma.DateTimeNullableFilter<"RoleAnchor"> | Date | string | null
 }
 
 export type RoleAnchorCreateWithoutAnchorInput = {
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
   role: Prisma.RoleCreateNestedOneWithoutRoleAnchorInput
 }
 
 export type RoleAnchorUncheckedCreateWithoutAnchorInput = {
   id?: number
   roleId: number
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type RoleAnchorCreateOrConnectWithoutAnchorInput = {
@@ -609,71 +554,55 @@ export type RoleAnchorUpdateManyWithWhereWithoutAnchorInput = {
 export type RoleAnchorCreateManyRoleInput = {
   id?: number
   anchorId: number
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type RoleAnchorUpdateWithoutRoleInput = {
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   anchor?: Prisma.AnchorUpdateOneRequiredWithoutRoleAnchorNestedInput
 }
 
 export type RoleAnchorUncheckedUpdateWithoutRoleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   anchorId?: Prisma.IntFieldUpdateOperationsInput | number
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RoleAnchorUncheckedUpdateManyWithoutRoleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   anchorId?: Prisma.IntFieldUpdateOperationsInput | number
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RoleAnchorCreateManyAnchorInput = {
   id?: number
   roleId: number
-  merge: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type RoleAnchorUpdateWithoutAnchorInput = {
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.RoleUpdateOneRequiredWithoutRoleAnchorNestedInput
 }
 
 export type RoleAnchorUncheckedUpdateWithoutAnchorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type RoleAnchorUncheckedUpdateManyWithoutAnchorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
-  merge?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -682,10 +611,8 @@ export type RoleAnchorSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   roleId?: boolean
   anchorId?: boolean
-  merge?: boolean
   created_at?: boolean
   updated_at?: boolean
-  deleted_at?: boolean
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
   anchor?: boolean | Prisma.AnchorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["roleAnchor"]>
@@ -696,13 +623,11 @@ export type RoleAnchorSelectScalar = {
   id?: boolean
   roleId?: boolean
   anchorId?: boolean
-  merge?: boolean
   created_at?: boolean
   updated_at?: boolean
-  deleted_at?: boolean
 }
 
-export type RoleAnchorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "roleId" | "anchorId" | "merge" | "created_at" | "updated_at" | "deleted_at", ExtArgs["result"]["roleAnchor"]>
+export type RoleAnchorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "roleId" | "anchorId" | "created_at" | "updated_at", ExtArgs["result"]["roleAnchor"]>
 export type RoleAnchorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
   anchor?: boolean | Prisma.AnchorDefaultArgs<ExtArgs>
@@ -718,10 +643,8 @@ export type $RoleAnchorPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: number
     roleId: number
     anchorId: number
-    merge: string
     created_at: Date
     updated_at: Date
-    deleted_at: Date | null
   }, ExtArgs["result"]["roleAnchor"]>
   composites: {}
 }
@@ -1096,10 +1019,8 @@ export interface RoleAnchorFieldRefs {
   readonly id: Prisma.FieldRef<"RoleAnchor", 'Int'>
   readonly roleId: Prisma.FieldRef<"RoleAnchor", 'Int'>
   readonly anchorId: Prisma.FieldRef<"RoleAnchor", 'Int'>
-  readonly merge: Prisma.FieldRef<"RoleAnchor", 'String'>
   readonly created_at: Prisma.FieldRef<"RoleAnchor", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"RoleAnchor", 'DateTime'>
-  readonly deleted_at: Prisma.FieldRef<"RoleAnchor", 'DateTime'>
 }
     
 

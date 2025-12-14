@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { prisma } from "../../lib/prisma";
-import { Message } from "../utils/Message";
-import { Hash } from "../utils/Hash";
+import { prisma } from "../../../lib/prisma";
+import { Message } from "../../utils/Message";
+import { Hash } from "../../utils/Hash";
 
 export class UserController {
   public static async index(req: Request, res: Response) {
@@ -98,6 +98,13 @@ export class UserController {
   public static async softDelete(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
+
+      if ([1].includes(id)) {
+        return Message.badRequest(res, {
+          message: "cannot delete for id 1",
+        });
+      }
+
       const user = await prisma.user.update({
         data: { deleted_at: new Date() },
         where: { id },
@@ -134,6 +141,13 @@ export class UserController {
   public static async destroy(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
+
+      if ([1].includes(id)) {
+        return Message.badRequest(res, {
+          message: "cannot delete for id 1",
+        });
+      }
+
       const user = await prisma.user.delete({
         where: { id },
         omit: { password: true },

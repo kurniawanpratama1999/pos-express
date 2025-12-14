@@ -55,7 +55,15 @@ export const ModelName = {
   Role: 'Role',
   AccessToken: 'AccessToken',
   Anchor: 'Anchor',
-  RoleAnchor: 'RoleAnchor'
+  RoleAnchor: 'RoleAnchor',
+  Category: 'Category',
+  Product: 'Product',
+  Variant: 'Variant',
+  Order: 'Order',
+  OrderDetail: 'OrderDetail',
+  Discount: 'Discount',
+  DiscountCondition: 'DiscountCondition',
+  Tax: 'Tax'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -92,8 +100,7 @@ export const RoleScalarFieldEnum = {
   id: 'id',
   name: 'name',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 } as const
 
 export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
@@ -117,8 +124,7 @@ export const AnchorScalarFieldEnum = {
   name: 'name',
   url: 'url',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 } as const
 
 export type AnchorScalarFieldEnum = (typeof AnchorScalarFieldEnum)[keyof typeof AnchorScalarFieldEnum]
@@ -128,13 +134,120 @@ export const RoleAnchorScalarFieldEnum = {
   id: 'id',
   roleId: 'roleId',
   anchorId: 'anchorId',
-  merge: 'merge',
   created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  updated_at: 'updated_at'
 } as const
 
 export type RoleAnchorScalarFieldEnum = (typeof RoleAnchorScalarFieldEnum)[keyof typeof RoleAnchorScalarFieldEnum]
+
+
+export const CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  categoryId: 'categoryId',
+  name: 'name',
+  price: 'price',
+  description: 'description',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const VariantScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  name: 'name',
+  price: 'price',
+  description: 'description',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type VariantScalarFieldEnum = (typeof VariantScalarFieldEnum)[keyof typeof VariantScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  subtotal: 'subtotal',
+  discount: 'discount',
+  tax: 'tax',
+  total: 'total',
+  payment: 'payment',
+  change: 'change',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderDetailScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  productId: 'productId',
+  price: 'price',
+  quantity: 'quantity',
+  subtotal: 'subtotal',
+  discount: 'discount',
+  tax: 'tax',
+  total: 'total',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type OrderDetailScalarFieldEnum = (typeof OrderDetailScalarFieldEnum)[keyof typeof OrderDetailScalarFieldEnum]
+
+
+export const DiscountScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  percentage: 'percentage',
+  amount: 'amount',
+  is_stackable: 'is_stackable',
+  priority: 'priority',
+  max_discount: 'max_discount',
+  apply_to: 'apply_to',
+  is_active: 'is_active',
+  start_at: 'start_at',
+  end_at: 'end_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type DiscountScalarFieldEnum = (typeof DiscountScalarFieldEnum)[keyof typeof DiscountScalarFieldEnum]
+
+
+export const DiscountConditionScalarFieldEnum = {
+  id: 'id',
+  discountId: 'discountId',
+  productId: 'productId',
+  min_quantity: 'min_quantity',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type DiscountConditionScalarFieldEnum = (typeof DiscountConditionScalarFieldEnum)[keyof typeof DiscountConditionScalarFieldEnum]
+
+
+export const TaxScalarFieldEnum = {
+  id: 'id',
+  total: 'total'
+} as const
+
+export type TaxScalarFieldEnum = (typeof TaxScalarFieldEnum)[keyof typeof TaxScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -185,9 +298,39 @@ export const AnchorOrderByRelevanceFieldEnum = {
 export type AnchorOrderByRelevanceFieldEnum = (typeof AnchorOrderByRelevanceFieldEnum)[keyof typeof AnchorOrderByRelevanceFieldEnum]
 
 
-export const RoleAnchorOrderByRelevanceFieldEnum = {
-  merge: 'merge'
+export const CategoryOrderByRelevanceFieldEnum = {
+  name: 'name'
 } as const
 
-export type RoleAnchorOrderByRelevanceFieldEnum = (typeof RoleAnchorOrderByRelevanceFieldEnum)[keyof typeof RoleAnchorOrderByRelevanceFieldEnum]
+export type CategoryOrderByRelevanceFieldEnum = (typeof CategoryOrderByRelevanceFieldEnum)[keyof typeof CategoryOrderByRelevanceFieldEnum]
+
+
+export const ProductOrderByRelevanceFieldEnum = {
+  name: 'name',
+  description: 'description'
+} as const
+
+export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFieldEnum)[keyof typeof ProductOrderByRelevanceFieldEnum]
+
+
+export const VariantOrderByRelevanceFieldEnum = {
+  name: 'name',
+  description: 'description'
+} as const
+
+export type VariantOrderByRelevanceFieldEnum = (typeof VariantOrderByRelevanceFieldEnum)[keyof typeof VariantOrderByRelevanceFieldEnum]
+
+
+export const OrderOrderByRelevanceFieldEnum = {
+  code: 'code'
+} as const
+
+export type OrderOrderByRelevanceFieldEnum = (typeof OrderOrderByRelevanceFieldEnum)[keyof typeof OrderOrderByRelevanceFieldEnum]
+
+
+export const DiscountOrderByRelevanceFieldEnum = {
+  name: 'name'
+} as const
+
+export type DiscountOrderByRelevanceFieldEnum = (typeof DiscountOrderByRelevanceFieldEnum)[keyof typeof DiscountOrderByRelevanceFieldEnum]
 

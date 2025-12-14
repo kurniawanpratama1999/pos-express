@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { prisma } from "../../lib/prisma";
-import { Message } from "../utils/Message";
+import { prisma } from "../../../lib/prisma";
+import { Message } from "../../utils/Message";
 
 export class RoleController {
   public static async index(req: Request, res: Response) {
@@ -84,9 +84,9 @@ export class RoleController {
     try {
       const id = Number(req.params.id);
 
-      if ([1, 2, 3].includes(id)) {
+      if ([1].includes(id)) {
         return Message.badRequest(res, {
-          message: "cannot delete for id 1, 2, and 3",
+          message: "cannot delete for id 1",
         });
       }
 

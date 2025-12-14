@@ -245,7 +245,7 @@ export type UserWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
   deleted_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-  accessToken?: Prisma.AccessTokenListRelationFilter
+  accessToken?: Prisma.XOR<Prisma.AccessTokenNullableScalarRelationFilter, Prisma.AccessTokenWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -258,7 +258,7 @@ export type UserOrderByWithRelationInput = {
   updated_at?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.RoleOrderByWithRelationInput
-  accessToken?: Prisma.AccessTokenOrderByRelationAggregateInput
+  accessToken?: Prisma.AccessTokenOrderByWithRelationInput
   _relevance?: Prisma.UserOrderByRelevanceInput
 }
 
@@ -275,7 +275,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
   deleted_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-  accessToken?: Prisma.AccessTokenListRelationFilter
+  accessToken?: Prisma.XOR<Prisma.AccessTokenNullableScalarRelationFilter, Prisma.AccessTokenWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -316,7 +316,7 @@ export type UserCreateInput = {
   updated_at?: Date | string
   deleted_at?: Date | string | null
   role: Prisma.RoleCreateNestedOneWithoutUserInput
-  accessToken?: Prisma.AccessTokenCreateNestedManyWithoutUserInput
+  accessToken?: Prisma.AccessTokenCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -328,7 +328,7 @@ export type UserUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   deleted_at?: Date | string | null
-  accessToken?: Prisma.AccessTokenUncheckedCreateNestedManyWithoutUserInput
+  accessToken?: Prisma.AccessTokenUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -339,7 +339,7 @@ export type UserUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.RoleUpdateOneRequiredWithoutUserNestedInput
-  accessToken?: Prisma.AccessTokenUpdateManyWithoutUserNestedInput
+  accessToken?: Prisma.AccessTokenUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -351,7 +351,7 @@ export type UserUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accessToken?: Prisma.AccessTokenUncheckedUpdateManyWithoutUserNestedInput
+  accessToken?: Prisma.AccessTokenUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -532,7 +532,7 @@ export type UserCreateWithoutRoleInput = {
   created_at?: Date | string
   updated_at?: Date | string
   deleted_at?: Date | string | null
-  accessToken?: Prisma.AccessTokenCreateNestedManyWithoutUserInput
+  accessToken?: Prisma.AccessTokenCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRoleInput = {
@@ -543,7 +543,7 @@ export type UserUncheckedCreateWithoutRoleInput = {
   created_at?: Date | string
   updated_at?: Date | string
   deleted_at?: Date | string | null
-  accessToken?: Prisma.AccessTokenUncheckedCreateNestedManyWithoutUserInput
+  accessToken?: Prisma.AccessTokenUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRoleInput = {
@@ -661,7 +661,7 @@ export type UserUpdateWithoutRoleInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accessToken?: Prisma.AccessTokenUpdateManyWithoutUserNestedInput
+  accessToken?: Prisma.AccessTokenUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoleInput = {
@@ -672,7 +672,7 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accessToken?: Prisma.AccessTokenUncheckedUpdateManyWithoutUserNestedInput
+  accessToken?: Prisma.AccessTokenUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -686,35 +686,6 @@ export type UserUncheckedUpdateManyWithoutRoleInput = {
 }
 
 
-/**
- * Count Type UserCountOutputType
- */
-
-export type UserCountOutputType = {
-  accessToken: number
-}
-
-export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  accessToken?: boolean | UserCountOutputTypeCountAccessTokenArgs
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UserCountOutputType
-   */
-  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountAccessTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AccessTokenWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -727,7 +698,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   deleted_at?: boolean
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
   accessToken?: boolean | Prisma.User$accessTokenArgs<ExtArgs>
-  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 
@@ -747,14 +717,13 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
   accessToken?: boolean | Prisma.User$accessTokenArgs<ExtArgs>
-  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
     role: Prisma.$RolePayload<ExtArgs>
-    accessToken: Prisma.$AccessTokenPayload<ExtArgs>[]
+    accessToken: Prisma.$AccessTokenPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1106,7 +1075,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  accessToken<T extends Prisma.User$accessTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accessTokenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccessTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  accessToken<T extends Prisma.User$accessTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accessTokenArgs<ExtArgs>>): Prisma.Prisma__AccessTokenClient<runtime.Types.Result.GetResult<Prisma.$AccessTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1503,11 +1472,6 @@ export type User$accessTokenArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   include?: Prisma.AccessTokenInclude<ExtArgs> | null
   where?: Prisma.AccessTokenWhereInput
-  orderBy?: Prisma.AccessTokenOrderByWithRelationInput | Prisma.AccessTokenOrderByWithRelationInput[]
-  cursor?: Prisma.AccessTokenWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AccessTokenScalarFieldEnum | Prisma.AccessTokenScalarFieldEnum[]
 }
 
 /**

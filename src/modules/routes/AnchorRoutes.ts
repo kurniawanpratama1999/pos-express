@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AnchorController } from "../controllers/AnchorController";
+import { AnchorController } from "../controllers/Accessibility/AnchorController";
 import { Validate } from "../utils/Validate";
 import { AnchorValidation } from "../validations/anchor.validation";
 

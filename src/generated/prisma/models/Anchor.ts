@@ -41,7 +41,6 @@ export type AnchorMinAggregateOutputType = {
   url: string | null
   created_at: Date | null
   updated_at: Date | null
-  deleted_at: Date | null
 }
 
 export type AnchorMaxAggregateOutputType = {
@@ -51,7 +50,6 @@ export type AnchorMaxAggregateOutputType = {
   url: string | null
   created_at: Date | null
   updated_at: Date | null
-  deleted_at: Date | null
 }
 
 export type AnchorCountAggregateOutputType = {
@@ -61,7 +59,6 @@ export type AnchorCountAggregateOutputType = {
   url: number
   created_at: number
   updated_at: number
-  deleted_at: number
   _all: number
 }
 
@@ -81,7 +78,6 @@ export type AnchorMinAggregateInputType = {
   url?: true
   created_at?: true
   updated_at?: true
-  deleted_at?: true
 }
 
 export type AnchorMaxAggregateInputType = {
@@ -91,7 +87,6 @@ export type AnchorMaxAggregateInputType = {
   url?: true
   created_at?: true
   updated_at?: true
-  deleted_at?: true
 }
 
 export type AnchorCountAggregateInputType = {
@@ -101,7 +96,6 @@ export type AnchorCountAggregateInputType = {
   url?: true
   created_at?: true
   updated_at?: true
-  deleted_at?: true
   _all?: true
 }
 
@@ -198,7 +192,6 @@ export type AnchorGroupByOutputType = {
   url: string
   created_at: Date
   updated_at: Date
-  deleted_at: Date | null
   _count: AnchorCountAggregateOutputType | null
   _avg: AnchorAvgAggregateOutputType | null
   _sum: AnchorSumAggregateOutputType | null
@@ -231,7 +224,6 @@ export type AnchorWhereInput = {
   url?: Prisma.StringFilter<"Anchor"> | string
   created_at?: Prisma.DateTimeFilter<"Anchor"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Anchor"> | Date | string
-  deleted_at?: Prisma.DateTimeNullableFilter<"Anchor"> | Date | string | null
   roleAnchor?: Prisma.RoleAnchorListRelationFilter
 }
 
@@ -242,7 +234,6 @@ export type AnchorOrderByWithRelationInput = {
   url?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   roleAnchor?: Prisma.RoleAnchorOrderByRelationAggregateInput
   _relevance?: Prisma.AnchorOrderByRelevanceInput
 }
@@ -257,7 +248,6 @@ export type AnchorWhereUniqueInput = Prisma.AtLeast<{
   url?: Prisma.StringFilter<"Anchor"> | string
   created_at?: Prisma.DateTimeFilter<"Anchor"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Anchor"> | Date | string
-  deleted_at?: Prisma.DateTimeNullableFilter<"Anchor"> | Date | string | null
   roleAnchor?: Prisma.RoleAnchorListRelationFilter
 }, "id">
 
@@ -268,7 +258,6 @@ export type AnchorOrderByWithAggregationInput = {
   url?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AnchorCountOrderByAggregateInput
   _avg?: Prisma.AnchorAvgOrderByAggregateInput
   _max?: Prisma.AnchorMaxOrderByAggregateInput
@@ -286,7 +275,6 @@ export type AnchorScalarWhereWithAggregatesInput = {
   url?: Prisma.StringWithAggregatesFilter<"Anchor"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Anchor"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Anchor"> | Date | string
-  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Anchor"> | Date | string | null
 }
 
 export type AnchorCreateInput = {
@@ -295,7 +283,6 @@ export type AnchorCreateInput = {
   url: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
   roleAnchor?: Prisma.RoleAnchorCreateNestedManyWithoutAnchorInput
 }
 
@@ -306,7 +293,6 @@ export type AnchorUncheckedCreateInput = {
   url: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
   roleAnchor?: Prisma.RoleAnchorUncheckedCreateNestedManyWithoutAnchorInput
 }
 
@@ -316,7 +302,6 @@ export type AnchorUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   roleAnchor?: Prisma.RoleAnchorUpdateManyWithoutAnchorNestedInput
 }
 
@@ -327,7 +312,6 @@ export type AnchorUncheckedUpdateInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   roleAnchor?: Prisma.RoleAnchorUncheckedUpdateManyWithoutAnchorNestedInput
 }
 
@@ -338,7 +322,6 @@ export type AnchorCreateManyInput = {
   url: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type AnchorUpdateManyMutationInput = {
@@ -347,7 +330,6 @@ export type AnchorUpdateManyMutationInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AnchorUncheckedUpdateManyInput = {
@@ -357,7 +339,6 @@ export type AnchorUncheckedUpdateManyInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AnchorOrderByRelevanceInput = {
@@ -373,7 +354,6 @@ export type AnchorCountOrderByAggregateInput = {
   url?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
 }
 
 export type AnchorAvgOrderByAggregateInput = {
@@ -387,7 +367,6 @@ export type AnchorMaxOrderByAggregateInput = {
   url?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
 }
 
 export type AnchorMinOrderByAggregateInput = {
@@ -397,7 +376,6 @@ export type AnchorMinOrderByAggregateInput = {
   url?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  deleted_at?: Prisma.SortOrder
 }
 
 export type AnchorSumOrderByAggregateInput = {
@@ -429,7 +407,6 @@ export type AnchorCreateWithoutRoleAnchorInput = {
   url: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type AnchorUncheckedCreateWithoutRoleAnchorInput = {
@@ -439,7 +416,6 @@ export type AnchorUncheckedCreateWithoutRoleAnchorInput = {
   url: string
   created_at?: Date | string
   updated_at?: Date | string
-  deleted_at?: Date | string | null
 }
 
 export type AnchorCreateOrConnectWithoutRoleAnchorInput = {
@@ -464,7 +440,6 @@ export type AnchorUpdateWithoutRoleAnchorInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AnchorUncheckedUpdateWithoutRoleAnchorInput = {
@@ -474,7 +449,6 @@ export type AnchorUncheckedUpdateWithoutRoleAnchorInput = {
   url?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -515,7 +489,6 @@ export type AnchorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   url?: boolean
   created_at?: boolean
   updated_at?: boolean
-  deleted_at?: boolean
   roleAnchor?: boolean | Prisma.Anchor$roleAnchorArgs<ExtArgs>
   _count?: boolean | Prisma.AnchorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["anchor"]>
@@ -529,10 +502,9 @@ export type AnchorSelectScalar = {
   url?: boolean
   created_at?: boolean
   updated_at?: boolean
-  deleted_at?: boolean
 }
 
-export type AnchorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "icon" | "name" | "url" | "created_at" | "updated_at" | "deleted_at", ExtArgs["result"]["anchor"]>
+export type AnchorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "icon" | "name" | "url" | "created_at" | "updated_at", ExtArgs["result"]["anchor"]>
 export type AnchorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roleAnchor?: boolean | Prisma.Anchor$roleAnchorArgs<ExtArgs>
   _count?: boolean | Prisma.AnchorCountOutputTypeDefaultArgs<ExtArgs>
@@ -550,7 +522,6 @@ export type $AnchorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     url: string
     created_at: Date
     updated_at: Date
-    deleted_at: Date | null
   }, ExtArgs["result"]["anchor"]>
   composites: {}
 }
@@ -927,7 +898,6 @@ export interface AnchorFieldRefs {
   readonly url: Prisma.FieldRef<"Anchor", 'String'>
   readonly created_at: Prisma.FieldRef<"Anchor", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Anchor", 'DateTime'>
-  readonly deleted_at: Prisma.FieldRef<"Anchor", 'DateTime'>
 }
     
 

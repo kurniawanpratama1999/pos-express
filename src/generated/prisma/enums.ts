@@ -9,7 +9,17 @@
 * 🟢 You can import this file directly.
 */
 
+export const DiscountType = {
+  PERCENT: 'PERCENT',
+  FIXED: 'FIXED'
+} as const
+
+export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const DiscountApplyTo = {
+  ORDER: 'ORDER',
+  PRODUCT: 'PRODUCT'
+} as const
+
+export type DiscountApplyTo = (typeof DiscountApplyTo)[keyof typeof DiscountApplyTo]
