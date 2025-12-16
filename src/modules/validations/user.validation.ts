@@ -16,7 +16,7 @@ export class UserValidation {
       name: z.string().min(3),
       roleId: z.number().min(1),
       email: z.email(),
-      password: z.string().min(8).nullable(),
+      password: z.string().min(8).optional(),
     });
   }
 }
