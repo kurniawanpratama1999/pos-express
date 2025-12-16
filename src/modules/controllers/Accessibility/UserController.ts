@@ -51,7 +51,15 @@ export class UserController {
 
       data.password = await Hash.make(data.password);
 
-      const user = await prisma.user.create({ data, omit: { password: true } });
+      const user = await prisma.user.create({
+        data: {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          roleId: data.roleId,
+        },
+        omit: { password: true },
+      });
       return Message.ok(res, "add user is success", user);
     } catch (error: any) {
       return Message.error(res, { message: error.message });
@@ -61,33 +69,33 @@ export class UserController {
   public static async update(req: Request, res: Response) {
     try {
       const data = req.body;
+
+      const send: {
+        name: string;
+        email: string;
+        roleId: number;
+        password?: string;
+      } = {
+        name: data.name,
+        email: data.email,
+        roleId: data.roleId,
+      };
+
       const id = Number(req.params.id);
-      let user;
+
       if (data.password && data.password_confirmation) {
         if (data.password_confirmation !== data.password) {
           return Message.unprocessable(res, "Password is not the same!");
         }
 
-        data.password = await Hash.make(data.password);
-        user = await prisma.user.update({
-          data: {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-          },
-          where: { id },
-          omit: { password: true },
-        });
-      } else {
-        user = await prisma.user.update({
-          data: {
-            name: data.name,
-            email: data.email,
-          },
-          where: { id },
-          omit: { password: true },
-        });
+        send.password = await Hash.make(data.password);
       }
+
+      const user = await prisma.user.update({
+        data: { ...send },
+        where: { id },
+        omit: { password: true },
+      });
 
       return Message.ok(res, `user with id-${id} is updated`, user);
     } catch (error: any) {
@@ -99,7 +107,7 @@ export class UserController {
     try {
       const id = Number(req.params.id);
 
-      if ([1].includes(id)) {
+      if (id <= 1) {
         return Message.badRequest(res, {
           message: "cannot delete for id 1",
         });
@@ -142,7 +150,7 @@ export class UserController {
     try {
       const id = Number(req.params.id);
 
-      if ([1].includes(id)) {
+      if (id <= 1) {
         return Message.badRequest(res, {
           message: "cannot delete for id 1",
         });

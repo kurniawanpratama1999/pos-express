@@ -23,7 +23,9 @@ export class CategoryController {
   public static async store(req: Request, res: Response) {
     try {
       const data = req.body;
-      const storeData = await prisma.category.create({ data });
+      const storeData = await prisma.category.create({
+        data: { name: data.name },
+      });
       return Message.ok(res, `Store category is success`, storeData);
     } catch (error: any) {
       return Message.unprocessable(res, { message: error.message });
@@ -33,7 +35,10 @@ export class CategoryController {
     try {
       const id = Number(req.params.id);
       const data = req.body;
-      const updateData = await prisma.category.update({ data, where: { id } });
+      const updateData = await prisma.category.update({
+        data: { name: data.name },
+        where: { id },
+      });
       return Message.ok(
         res,
         `Update category with id-${id} is success`,

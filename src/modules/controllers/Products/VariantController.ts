@@ -23,7 +23,14 @@ export class VariantController {
   public static async store(req: Request, res: Response) {
     try {
       const data = req.body;
-      const storeData = await prisma.variant.create({ data });
+      const storeData = await prisma.variant.create({
+        data: {
+          productId: data.productId,
+          name: data.name,
+          price: data.price,
+          description: data.description,
+        },
+      });
       return Message.ok(res, `Store variant is success`, storeData);
     } catch (error: any) {
       return Message.unprocessable(res, { message: error.message });

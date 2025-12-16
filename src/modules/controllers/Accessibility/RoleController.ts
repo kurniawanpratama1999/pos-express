@@ -50,7 +50,9 @@ export class RoleController {
     try {
       const data = req.body;
       const newRole = await prisma.role.create({
-        data,
+        data: {
+          name: data.name,
+        },
       });
 
       Message.ok(res, "new role is added", newRole);
@@ -71,7 +73,7 @@ export class RoleController {
       const data = req.body;
       const role = await prisma.role.update({
         where: { id },
-        data: data,
+        data: { name: data.name },
       });
 
       Message.ok(res, `Update role with id-${id} is success`, role);
@@ -84,7 +86,7 @@ export class RoleController {
     try {
       const id = Number(req.params.id);
 
-      if ([1].includes(id)) {
+      if (id <= 1) {
         return Message.badRequest(res, {
           message: "cannot delete for id 1",
         });

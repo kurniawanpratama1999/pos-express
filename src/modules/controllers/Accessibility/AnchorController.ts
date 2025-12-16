@@ -27,7 +27,14 @@ export class AnchorController {
   public static async store(req: Request, res: Response) {
     try {
       const data = req.body;
-      const anchor = await prisma.anchor.create({ data });
+      const anchor = await prisma.anchor.create({
+        data: {
+          name: data.name,
+          icon: data.icon,
+          url: data.url,
+        },
+      });
+
       return Message.ok(res, "new anchor is added", anchor);
     } catch (error: any) {
       return Message.error(res, { message: error.message });
@@ -38,7 +45,14 @@ export class AnchorController {
     try {
       const id = Number(req.params.id);
       const data = req.body;
-      const anchor = await prisma.anchor.update({ data, where: { id } });
+      const anchor = await prisma.anchor.update({
+        data: {
+          name: data.name,
+          icon: data.icon,
+          url: data.url,
+        },
+        where: { id },
+      });
       return Message.ok(res, `update anchor with id-${id} is success`, anchor);
     } catch (error: any) {
       return Message.unprocessable(res, { message: error.message });
@@ -49,11 +63,12 @@ export class AnchorController {
     try {
       const id = Number(req.params.id);
 
-      if ([1, 2, 3].includes(id)) {
+      if (id <= 3) {
         return Message.badRequest(res, {
           message: "cannot delete for id 1",
         });
       }
+
       const anchor = await prisma.anchor.delete({ where: { id } });
       return Message.ok(res, `update anchor with id-${id} is success`, anchor);
     } catch (error: any) {

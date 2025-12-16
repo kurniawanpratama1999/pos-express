@@ -10,6 +10,7 @@ export class AuthController {
     try {
       const email = req.body.email;
       const password = req.body.password;
+
       const user = await prisma.user.findUnique({
         where: { email, AND: { deleted_at: null } },
         omit: { updated_at: true, deleted_at: true },

@@ -40,7 +40,13 @@ export class RoleAnchorController {
 
       const trxs = await prisma.$transaction(async (trx) => {
         await trx.roleAnchor.deleteMany({ where: { roleId } }).catch(() => {});
-        const create = await trx.roleAnchor.createMany({ data });
+        const create = await trx.roleAnchor.createMany({
+          data: {
+            anchorId: data.anchorId,
+            roleId: data.roleId,
+          },
+        });
+
         return create;
       });
 

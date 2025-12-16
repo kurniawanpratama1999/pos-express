@@ -29,6 +29,7 @@ export class ProductController {
       return Message.error(res, { message: error.message });
     }
   }
+
   public static async show(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
@@ -41,17 +42,33 @@ export class ProductController {
   public static async store(req: Request, res: Response) {
     try {
       const data = req.body;
-      const storeData = await prisma.product.create({ data });
+      const storeData = await prisma.product.create({
+        data: {
+          categoryId: data.categoryId,
+          name: data.name,
+          price: data.price,
+          description: data.description,
+        },
+      });
       return Message.ok(res, `Store product is success`, storeData);
     } catch (error: any) {
       return Message.unprocessable(res, { message: error.message });
     }
   }
+
   public static async update(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
       const data = req.body;
-      const updateData = await prisma.product.update({ data, where: { id } });
+      const updateData = await prisma.product.update({
+        data: {
+          categoryId: data.categoryId,
+          name: data.name,
+          price: data.price,
+          description: data.description,
+        },
+        where: { id },
+      });
       return Message.ok(
         res,
         `Update product with id-${id} is success`,
@@ -61,6 +78,7 @@ export class ProductController {
       return Message.unprocessable(res, { message: error.message });
     }
   }
+
   public static async destroy(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
