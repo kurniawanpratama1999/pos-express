@@ -1,5 +1,5 @@
 import { prisma } from "../src/lib/prisma";
-
+import { Hash } from "..//src/modules/utils/Hash";
 async function main() {
   const transaction = await prisma.$transaction(async (trx) => {
     const role = await trx.role.createMany({
@@ -19,7 +19,7 @@ async function main() {
         name: "admin",
         roleId: 1,
         email: "admin@mail.com",
-        password: "123456",
+        password: await Hash.make("1234"),
       },
     });
 
