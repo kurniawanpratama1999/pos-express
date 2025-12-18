@@ -53,7 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Role: 'Role',
-  AccessToken: 'AccessToken',
+  RefreshToken: 'RefreshToken',
   Anchor: 'Anchor',
   RoleAnchor: 'RoleAnchor',
   Category: 'Category',
@@ -106,7 +106,7 @@ export const RoleScalarFieldEnum = {
 export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
 
 
-export const AccessTokenScalarFieldEnum = {
+export const RefreshTokenScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   token: 'token',
@@ -115,7 +115,7 @@ export const AccessTokenScalarFieldEnum = {
   created_at: 'created_at'
 } as const
 
-export type AccessTokenScalarFieldEnum = (typeof AccessTokenScalarFieldEnum)[keyof typeof AccessTokenScalarFieldEnum]
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
 export const AnchorScalarFieldEnum = {
@@ -282,11 +282,11 @@ export const RoleOrderByRelevanceFieldEnum = {
 export type RoleOrderByRelevanceFieldEnum = (typeof RoleOrderByRelevanceFieldEnum)[keyof typeof RoleOrderByRelevanceFieldEnum]
 
 
-export const AccessTokenOrderByRelevanceFieldEnum = {
+export const RefreshTokenOrderByRelevanceFieldEnum = {
   token: 'token'
 } as const
 
-export type AccessTokenOrderByRelevanceFieldEnum = (typeof AccessTokenOrderByRelevanceFieldEnum)[keyof typeof AccessTokenOrderByRelevanceFieldEnum]
+export type RefreshTokenOrderByRelevanceFieldEnum = (typeof RefreshTokenOrderByRelevanceFieldEnum)[keyof typeof RefreshTokenOrderByRelevanceFieldEnum]
 
 
 export const AnchorOrderByRelevanceFieldEnum = {

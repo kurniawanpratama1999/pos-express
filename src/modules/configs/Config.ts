@@ -23,14 +23,8 @@ export class Config {
   public static jwt_secret(): string {
     return String(process.env.JWT_SECRET);
   }
-  public static jwt_secret_expire_in(): number {
-    return Number(process.env.JWT_EXPIRES_IN);
-  }
   public static jwt_refresh(): string {
     return String(process.env.JWT_REFRESH_SECRET);
-  }
-  public static jwt_refresh_expire_in(): number {
-    return Number(process.env.JWT_REFRESH_EXPIRES_IN);
   }
 
   public static port(): number {

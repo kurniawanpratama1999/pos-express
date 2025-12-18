@@ -8,25 +8,30 @@ class AuthMiddleware {
       const authorization = req.headers.authorization;
 
       if (!authorization) {
-        return Message.unauthorized(res, { message: "Token is missing" });
+        return Message.unauthorized(res, { message: "TOKEN_NOT_FOUND" });
       }
 
       const token = authorization.split(" ")[1];
 
       if (!token) {
-        return Message.unauthorized(res, { message: "Token is missing" });
+        return Message.unauthorized(res, { message: "TOKEN_IS_MISSING" });
       }
 
       const payload = JsonWebToken.verifyAccessToken(token);
 
       if (!payload) {
-        return Message.unauthorized(res, { message: "Token expired" });
+        return Message.unauthorized(res, { message: "TOKEN_EXPIRED" });
       }
 
       req.user = payload;
       return next();
-    } catch (error) {
-      return Message.unauthorized(res, { message: "Token invalid format" });
+    } catch (error: any) {
+      console.log(error);
+      if (error.name === "TokenExpiredError") {
+        return Message.unauthorized(res, { message: "TOKEN_EXPIRED" });
+      }
+
+      return Message.unauthorized(res, { message: "TOKEN_INVALID_FORMAT" });
     }
   }
 }

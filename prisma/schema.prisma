@@ -20,7 +20,7 @@ model User {
   deleted_at  DateTime?
 
   role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  accessToken AccessToken?
+  refreshToken RefreshToken?
 }
 
 model Role {
@@ -35,7 +35,7 @@ model Role {
   roleAnchor RoleAnchor[]
 }
 
-model AccessToken {
+model RefreshToken {
   id          Int       @id @db.UnsignedInt @default(autoincrement())
 
   userId      Int       @db.UnsignedInt @unique

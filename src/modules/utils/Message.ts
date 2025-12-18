@@ -4,7 +4,7 @@ export class Message {
   public static ok<T>(res: Response, message: string, data: T) {
     return res.status(200).json({
       success: true,
-      status: "Ok!",
+      status: "OK",
       message,
       data,
     });
@@ -13,7 +13,7 @@ export class Message {
   public static created<T>(res: Response, message: string, data: T) {
     return res.status(201).json({
       success: true,
-      status: "Created!",
+      status: "CREATED",
       message,
       data,
     });
@@ -22,7 +22,7 @@ export class Message {
   public static badRequest(res: Response, error: any) {
     return res.status(400).json({
       success: false,
-      status: "Bad Request!",
+      status: "BAD_REQUEST",
       error,
     });
   }
@@ -30,7 +30,7 @@ export class Message {
   public static unauthorized(res: Response, error: any) {
     return res.status(401).json({
       success: false,
-      status: "Unauthorized!",
+      status: "UNATHORIZED",
       error,
     });
   }
@@ -38,7 +38,7 @@ export class Message {
   public static forbidden(res: Response, error: any) {
     return res.status(403).json({
       success: false,
-      status: "Forbidden!",
+      status: "FORBIDDEN",
       error,
     });
   }
@@ -46,7 +46,7 @@ export class Message {
   public static notfound(res: Response, error: any) {
     return res.status(404).json({
       success: false,
-      status: "Not Found!",
+      status: "NOT_FOUND",
       error,
     });
   }
@@ -54,7 +54,7 @@ export class Message {
   public static conflict(res: Response, error: any) {
     return res.status(409).json({
       success: false,
-      status: "Conflict!",
+      status: "CONFLICT",
       error,
     });
   }
@@ -62,7 +62,7 @@ export class Message {
   public static unprocessable(res: Response, error: any) {
     return res.status(422).json({
       success: false,
-      status: "Unprocessable Entity!",
+      status: "UNPROCESSABLE_ENTITIY",
       error,
     });
   }
@@ -70,7 +70,7 @@ export class Message {
   public static error(res: Response, error: any) {
     return res.status(500).json({
       success: false,
-      status: "Internal Server Error!",
+      status: "INTERNAL_SERVER_ERROR",
       error,
     });
   }

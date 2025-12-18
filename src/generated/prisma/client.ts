@@ -48,10 +48,10 @@ export type User = Prisma.UserModel
  */
 export type Role = Prisma.RoleModel
 /**
- * Model AccessToken
+ * Model RefreshToken
  * 
  */
-export type AccessToken = Prisma.AccessTokenModel
+export type RefreshToken = Prisma.RefreshTokenModel
 /**
  * Model Anchor
  * 

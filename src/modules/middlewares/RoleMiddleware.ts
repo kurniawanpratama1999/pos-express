@@ -11,12 +11,12 @@ export class RoleMiddleware {
       const user = req.user;
       if (!currentUrl) {
         return Message.badRequest(res, {
-          message: "x-current-url is empty on header",
+          message: "CURRENT_URL_CANNOT_BE_EMPTY",
         });
       }
 
       if (!user) {
-        return Message.unauthorized(res, { message: "Please login first" });
+        return Message.unauthorized(res, { message: "CREADENTIAL_NOT_FOUND" });
       }
 
       const roleId: number = user.roleId;
@@ -62,7 +62,7 @@ export class RoleMiddleware {
 
       return next();
     } catch (error) {
-      return Message.error(res, { message: "something wrong in role access" });
+      return Message.error(res, { message: "FAILED_TO_ACCESS" });
     }
   }
 }

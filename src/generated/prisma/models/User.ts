@@ -245,7 +245,7 @@ export type UserWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
   deleted_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-  accessToken?: Prisma.XOR<Prisma.AccessTokenNullableScalarRelationFilter, Prisma.AccessTokenWhereInput> | null
+  refreshToken?: Prisma.XOR<Prisma.RefreshTokenNullableScalarRelationFilter, Prisma.RefreshTokenWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -258,7 +258,7 @@ export type UserOrderByWithRelationInput = {
   updated_at?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.RoleOrderByWithRelationInput
-  accessToken?: Prisma.AccessTokenOrderByWithRelationInput
+  refreshToken?: Prisma.RefreshTokenOrderByWithRelationInput
   _relevance?: Prisma.UserOrderByRelevanceInput
 }
 
@@ -275,7 +275,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
   deleted_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-  accessToken?: Prisma.XOR<Prisma.AccessTokenNullableScalarRelationFilter, Prisma.AccessTokenWhereInput> | null
+  refreshToken?: Prisma.XOR<Prisma.RefreshTokenNullableScalarRelationFilter, Prisma.RefreshTokenWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -316,7 +316,7 @@ export type UserCreateInput = {
   updated_at?: Date | string
   deleted_at?: Date | string | null
   role: Prisma.RoleCreateNestedOneWithoutUserInput
-  accessToken?: Prisma.AccessTokenCreateNestedOneWithoutUserInput
+  refreshToken?: Prisma.RefreshTokenCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -328,7 +328,7 @@ export type UserUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   deleted_at?: Date | string | null
-  accessToken?: Prisma.AccessTokenUncheckedCreateNestedOneWithoutUserInput
+  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -339,7 +339,7 @@ export type UserUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.RoleUpdateOneRequiredWithoutUserNestedInput
-  accessToken?: Prisma.AccessTokenUpdateOneWithoutUserNestedInput
+  refreshToken?: Prisma.RefreshTokenUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -351,7 +351,7 @@ export type UserUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accessToken?: Prisma.AccessTokenUncheckedUpdateOneWithoutUserNestedInput
+  refreshToken?: Prisma.RefreshTokenUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -511,18 +511,18 @@ export type UserUncheckedUpdateManyWithoutRoleNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
-export type UserCreateNestedOneWithoutAccessTokenInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAccessTokenInput, Prisma.UserUncheckedCreateWithoutAccessTokenInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAccessTokenInput
+export type UserCreateNestedOneWithoutRefreshTokenInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokenInput, Prisma.UserUncheckedCreateWithoutRefreshTokenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokenInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutAccessTokenNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAccessTokenInput, Prisma.UserUncheckedCreateWithoutAccessTokenInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAccessTokenInput
-  upsert?: Prisma.UserUpsertWithoutAccessTokenInput
+export type UserUpdateOneRequiredWithoutRefreshTokenNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokenInput, Prisma.UserUncheckedCreateWithoutRefreshTokenInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokenInput
+  upsert?: Prisma.UserUpsertWithoutRefreshTokenInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccessTokenInput, Prisma.UserUpdateWithoutAccessTokenInput>, Prisma.UserUncheckedUpdateWithoutAccessTokenInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokenInput, Prisma.UserUpdateWithoutRefreshTokenInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokenInput>
 }
 
 export type UserCreateWithoutRoleInput = {
@@ -532,7 +532,7 @@ export type UserCreateWithoutRoleInput = {
   created_at?: Date | string
   updated_at?: Date | string
   deleted_at?: Date | string | null
-  accessToken?: Prisma.AccessTokenCreateNestedOneWithoutUserInput
+  refreshToken?: Prisma.RefreshTokenCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRoleInput = {
@@ -543,7 +543,7 @@ export type UserUncheckedCreateWithoutRoleInput = {
   created_at?: Date | string
   updated_at?: Date | string
   deleted_at?: Date | string | null
-  accessToken?: Prisma.AccessTokenUncheckedCreateNestedOneWithoutUserInput
+  refreshToken?: Prisma.RefreshTokenUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRoleInput = {
@@ -586,7 +586,7 @@ export type UserScalarWhereInput = {
   deleted_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
 }
 
-export type UserCreateWithoutAccessTokenInput = {
+export type UserCreateWithoutRefreshTokenInput = {
   name: string
   email: string
   password: string
@@ -596,7 +596,7 @@ export type UserCreateWithoutAccessTokenInput = {
   role: Prisma.RoleCreateNestedOneWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutAccessTokenInput = {
+export type UserUncheckedCreateWithoutRefreshTokenInput = {
   id?: number
   roleId: number
   name: string
@@ -607,23 +607,23 @@ export type UserUncheckedCreateWithoutAccessTokenInput = {
   deleted_at?: Date | string | null
 }
 
-export type UserCreateOrConnectWithoutAccessTokenInput = {
+export type UserCreateOrConnectWithoutRefreshTokenInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAccessTokenInput, Prisma.UserUncheckedCreateWithoutAccessTokenInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokenInput, Prisma.UserUncheckedCreateWithoutRefreshTokenInput>
 }
 
-export type UserUpsertWithoutAccessTokenInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAccessTokenInput, Prisma.UserUncheckedUpdateWithoutAccessTokenInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAccessTokenInput, Prisma.UserUncheckedCreateWithoutAccessTokenInput>
+export type UserUpsertWithoutRefreshTokenInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokenInput, Prisma.UserUncheckedUpdateWithoutRefreshTokenInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokenInput, Prisma.UserUncheckedCreateWithoutRefreshTokenInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutAccessTokenInput = {
+export type UserUpdateToOneWithWhereWithoutRefreshTokenInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAccessTokenInput, Prisma.UserUncheckedUpdateWithoutAccessTokenInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokenInput, Prisma.UserUncheckedUpdateWithoutRefreshTokenInput>
 }
 
-export type UserUpdateWithoutAccessTokenInput = {
+export type UserUpdateWithoutRefreshTokenInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -633,7 +633,7 @@ export type UserUpdateWithoutAccessTokenInput = {
   role?: Prisma.RoleUpdateOneRequiredWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutAccessTokenInput = {
+export type UserUncheckedUpdateWithoutRefreshTokenInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -661,7 +661,7 @@ export type UserUpdateWithoutRoleInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accessToken?: Prisma.AccessTokenUpdateOneWithoutUserNestedInput
+  refreshToken?: Prisma.RefreshTokenUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoleInput = {
@@ -672,7 +672,7 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  accessToken?: Prisma.AccessTokenUncheckedUpdateOneWithoutUserNestedInput
+  refreshToken?: Prisma.RefreshTokenUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -697,7 +697,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updated_at?: boolean
   deleted_at?: boolean
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
-  accessToken?: boolean | Prisma.User$accessTokenArgs<ExtArgs>
+  refreshToken?: boolean | Prisma.User$refreshTokenArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 
@@ -716,14 +716,14 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "roleId" | "name" | "email" | "password" | "created_at" | "updated_at" | "deleted_at", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
-  accessToken?: boolean | Prisma.User$accessTokenArgs<ExtArgs>
+  refreshToken?: boolean | Prisma.User$refreshTokenArgs<ExtArgs>
 }
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
     role: Prisma.$RolePayload<ExtArgs>
-    accessToken: Prisma.$AccessTokenPayload<ExtArgs> | null
+    refreshToken: Prisma.$RefreshTokenPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1075,7 +1075,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  accessToken<T extends Prisma.User$accessTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accessTokenArgs<ExtArgs>>): Prisma.Prisma__AccessTokenClient<runtime.Types.Result.GetResult<Prisma.$AccessTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  refreshToken<T extends Prisma.User$refreshTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokenArgs<ExtArgs>>): Prisma.Prisma__RefreshTokenClient<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1456,22 +1456,22 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.accessToken
+ * User.refreshToken
  */
-export type User$accessTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$refreshTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AccessToken
+   * Select specific fields to fetch from the RefreshToken
    */
-  select?: Prisma.AccessTokenSelect<ExtArgs> | null
+  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AccessToken
+   * Omit specific fields from the RefreshToken
    */
-  omit?: Prisma.AccessTokenOmit<ExtArgs> | null
+  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AccessTokenInclude<ExtArgs> | null
-  where?: Prisma.AccessTokenWhereInput
+  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
+  where?: Prisma.RefreshTokenWhereInput
 }
 
 /**

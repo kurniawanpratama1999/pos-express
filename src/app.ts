@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { UserRoute } from "./modules/routes/UserRoutes";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import AuthMiddleware from "./modules/middlewares/AuthMiddleware";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
@@ -31,10 +32,13 @@ const corsConfig = cors({
 });
 
 // ACTIVATED MIDDLEWARE
-const middlewares = protectedMiddlewares(false);
+const middlewares = protectedMiddlewares(true);
 
 // INITIATE EXPRESS
 const app = express();
+
+// COOKIE PARSER
+app.use(cookieParser());
 
 // CORS
 app.use(corsConfig);

@@ -2,10 +2,45 @@ import { Request, Response } from "express";
 import { prisma } from "../../../lib/prisma";
 import { Message } from "../../utils/Message";
 import { Hash } from "../../utils/Hash";
+import { Prisma } from "../../../generated/prisma/client";
 
 export class UserController {
   public static async index(req: Request, res: Response) {
     try {
+      const query = req.query;
+      const qSearch = typeof query.q === "string" ? query.q : undefined;
+
+      let whereCondition: Prisma.UserWhereInput;
+
+      if (qSearch) {
+        whereCondition = {
+          deleted_at: null,
+          OR: [
+            {
+              name: {
+                contains: qSearch,
+              },
+            },
+            {
+              email: {
+                contains: qSearch,
+              },
+            },
+            {
+              role: {
+                name: {
+                  contains: qSearch,
+                },
+              },
+            },
+          ],
+        };
+      } else {
+        whereCondition = {
+          deleted_at: null,
+        };
+      }
+
       const users = await prisma.user.findMany({
         include: {
           role: {
@@ -14,7 +49,29 @@ export class UserController {
             },
           },
         },
-        where: { deleted_at: null },
+        where: {
+          deleted_at: null,
+          OR: [
+            {
+              name: {
+                contains: qSearch,
+              },
+            },
+            {
+              email: {
+                contains: qSearch,
+              },
+            },
+            {
+              role: {
+                name: {
+                  contains: qSearch,
+                },
+              },
+            },
+          ],
+        },
+
         omit: { password: true },
       });
 
@@ -69,7 +126,7 @@ export class UserController {
   public static async update(req: Request, res: Response) {
     try {
       const data = req.body;
-
+      console.log({ data });
       const send: {
         name: string;
         email: string;
@@ -91,13 +148,15 @@ export class UserController {
         send.password = await Hash.make(data.password);
       }
 
+      console.log({ send });
       const user = await prisma.user.update({
         data: { ...send },
         where: { id },
-        omit: { password: true },
       });
+      console.log({ user });
+      const { password, ...result } = user;
 
-      return Message.ok(res, `user with id-${id} is updated`, user);
+      return Message.ok(res, `user with id-${id} is updated`, result);
     } catch (error: any) {
       return Message.error(res, { message: error.message });
     }
