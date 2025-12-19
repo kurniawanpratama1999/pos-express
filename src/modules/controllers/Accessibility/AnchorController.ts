@@ -6,10 +6,11 @@ export class AnchorController {
   public static async index(req: Request, res: Response) {
     try {
       const anchors = await prisma.anchor.findMany();
-      return Message.ok(res, "Fetch all anchor is success", anchors);
+      return Message.ok(res, "FETCH_ANCHORS_IS_SUCCESS", anchors);
     } catch (error) {
+      console.error(error);
       return Message.error(res, {
-        message: "Something wrong when fetch anchors",
+        message: "ERROR_FETCH_ANCHORS",
       });
     }
   }
@@ -18,9 +19,10 @@ export class AnchorController {
     try {
       const id = Number(req.params.id);
       const anchor = await prisma.anchor.findUnique({ where: { id } });
-      return Message.ok(res, `Fetch anchor with id-${id} is success`, anchor);
+      return Message.ok(res, `FETCH_ANCHOR_${id}_IS_SUCCESS`, anchor);
     } catch (error) {
-      return Message.error(res, { message: "Failed for fetch Anchor" });
+      console.error(error);
+      return Message.error(res, { message: "ERROR_FETCH_ANCHOR" });
     }
   }
 
@@ -35,8 +37,9 @@ export class AnchorController {
         },
       });
 
-      return Message.ok(res, "new anchor is added", anchor);
+      return Message.created(res, "NEW_ANCHOR_IS_ADDED", anchor);
     } catch (error: any) {
+      console.error(error);
       return Message.error(res, { message: error.message });
     }
   }
@@ -53,9 +56,10 @@ export class AnchorController {
         },
         where: { id },
       });
-      return Message.ok(res, `update anchor with id-${id} is success`, anchor);
+      return Message.ok(res, `UPDATE_ANCHOR_${id}_IS_SUCCESS`, anchor);
     } catch (error: any) {
-      return Message.unprocessable(res, { message: error.message });
+      console.error(error);
+      return Message.unprocessable(res, { message: "ERROR_UPDATE_ANCHOR" });
     }
   }
 
@@ -65,14 +69,15 @@ export class AnchorController {
 
       if (id <= 3) {
         return Message.badRequest(res, {
-          message: "cannot delete for id 1",
+          message: "CANNOT_DELETE_ID",
         });
       }
 
       const anchor = await prisma.anchor.delete({ where: { id } });
-      return Message.ok(res, `update anchor with id-${id} is success`, anchor);
+      return Message.ok(res, `DELETE_ANCHOR_${id}_IS_SUCCESS`, anchor);
     } catch (error: any) {
-      return Message.unprocessable(res, { message: error.message });
+      console.error(error);
+      return Message.unprocessable(res, { message: "ERROR_DELETE_ANCHOR" });
     }
   }
 }
