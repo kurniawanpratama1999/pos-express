@@ -12,9 +12,10 @@ export class RoleAnchorController {
           anchor: true,
         },
       });
-      return Message.ok(res, "Fetch all anchor is success", rolesAnchors);
+      return Message.ok(res, "FETCH_ROLES_ANCHORS_IS_SUCCESS", rolesAnchors);
     } catch (error: any) {
-      return Message.error(res, { message: error.message });
+      console.error(error);
+      return Message.error(res, { message: "ERROR_FETCH_ROLES_ANCHORS" });
     }
   }
   public static async show(req: Request, res: Response) {
@@ -26,11 +27,14 @@ export class RoleAnchorController {
       });
       return Message.ok(
         res,
-        `Fetch all anchor based on role id-${roleId} is success`,
+        `FETCH_ROLES_${roleId}_ANCHORS_IS_SUCCESS`,
         roleAnchors
       );
     } catch (error: any) {
-      return Message.error(res, { message: error.message });
+      console.error(error);
+      return Message.error(res, {
+        message: `ERROR_FETCH_ROLES_ANCHORS`,
+      });
     }
   }
   public static async upsert(req: Request, res: Response) {
@@ -56,9 +60,9 @@ export class RoleAnchorController {
         expired: Date.now() + 24 * 60 * 60 * 1000,
       });
 
-      return Message.ok(res, "new anchors is Success", trxs);
+      return Message.ok(res, "UPDATE_ROLES_ANCHOR_IS_SUCCESS", trxs);
     } catch (error: any) {
-      return Message.error(res, { message: error.message });
+      return Message.error(res, { message: "ERROR_UPDATE_ROLES_ANCHOR" });
     }
   }
 }
