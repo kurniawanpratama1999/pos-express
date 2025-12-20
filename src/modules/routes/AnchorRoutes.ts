@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { AnchorController } from "../controllers/Accessibility/AnchorController";
-import { Validate } from "../utils/Validate";
+import { Validate } from "../middlewares/ValidateMiddleware";
 import { AnchorValidation } from "../validations/anchor.validation";
 
 const AnchorRoute = Router();
@@ -21,3 +21,5 @@ AnchorRoute.put(
 );
 
 AnchorRoute.delete("/:id", AnchorController.destroy);
+
+export { AnchorRoute };

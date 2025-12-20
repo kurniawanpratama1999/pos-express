@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { RoleController } from "../controllers/Accessibility/RoleController";
 import { RoleValidation } from "../validations/role.validation";
-import { Validate } from "../utils/Validate";
+import { Validate } from "../middlewares/ValidateMiddleware";
 
 const RoleRoute = Router();
 

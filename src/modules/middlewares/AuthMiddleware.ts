@@ -8,19 +8,31 @@ class AuthMiddleware {
       const authorization = req.headers.authorization;
 
       if (!authorization) {
-        return Message.unauthorized(res, { message: "TOKEN_NOT_FOUND" });
+        return Message.fail({
+          res,
+          code: "TOKEN_IS_MISSING",
+          status: "notFound",
+        });
       }
 
       const token = authorization.split(" ")[1];
 
       if (!token) {
-        return Message.unauthorized(res, { message: "TOKEN_IS_MISSING" });
+        return Message.fail({
+          res,
+          code: "TOKEN_IS_MISSING",
+          status: "notFound",
+        });
       }
 
       const payload = JsonWebToken.verifyAccessToken(token);
 
       if (!payload) {
-        return Message.unauthorized(res, { message: "TOKEN_EXPIRED" });
+        return Message.fail({
+          res,
+          code: "TOKEN_IS_MISSING",
+          status: "forbidden",
+        });
       }
 
       req.user = payload;
@@ -28,10 +40,18 @@ class AuthMiddleware {
     } catch (error: any) {
       console.log(error);
       if (error.name === "TokenExpiredError") {
-        return Message.unauthorized(res, { message: "TOKEN_EXPIRED" });
+        return Message.fail({
+          res,
+          code: "TOKEN_IS_MISSING",
+          status: "forbidden",
+        });
       }
 
-      return Message.unauthorized(res, { message: "TOKEN_INVALID_FORMAT" });
+      return Message.fail({
+        res,
+        code: "TOKEN_IS_MISSING",
+        status: "error",
+      });
     }
   }
 }

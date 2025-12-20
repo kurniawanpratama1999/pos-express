@@ -4,6 +4,7 @@ import { Message } from "../../utils/Message";
 import { Hash } from "../../utils/Hash";
 import { JsonWebToken } from "../../utils/Jwt";
 import "dotenv/config";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 export class AuthController {
   public static async login(req: Request, res: Response) {
@@ -17,29 +18,30 @@ export class AuthController {
       });
 
       if (!user) {
-        return Message.unauthorized(res, {
-          message: "INCORRECT_EMAIL_OR_PASSWORD",
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "INVALID_CREDENTIALS",
         });
       }
 
       const comparePassword = await Hash.compare(password, user.password);
 
       if (!comparePassword) {
-        return Message.unauthorized(res, {
-          message: "INCORRECT_EMAIL_OR_PASSWORD",
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "INVALID_CREDENTIALS",
         });
       }
 
-      const {
-        name,
-        email: userEmail,
-        password: userPassword,
-        created_at,
-        ...payload
-      } = user;
+      const payload = {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      };
 
       const refreshToken = JsonWebToken.signRefreshToken(payload);
-
       const accessToken = JsonWebToken.signAccessToken(payload);
 
       res.cookie("refresh_token", refreshToken, {
@@ -67,9 +69,10 @@ export class AuthController {
         },
       });
 
-      return Message.ok(res, "LOGIN_SUCCESS", accessToken);
+      return Message.ok({ res, code: "LOGIN_SUCCESS", data: accessToken });
     } catch (error) {
-      return Message.error(res, { message: error });
+      console.log(error);
+      return Message.fail({ res, status: "error", code: "LOGIN_FAILED" });
     }
   }
 
@@ -77,34 +80,63 @@ export class AuthController {
     try {
       const refresh_token = req.cookies["refresh_token"];
       if (!refresh_token) {
-        return Message.unauthorized(res, { message: "CREDENTIAL_IS_MISSING" });
+        return Message.fail({
+          res,
+          status: "unauthorized",
+          code: "UNAUTHENTICATED",
+        });
       }
 
       const findToken = await prisma.refreshToken.findUnique({
         where: { token: refresh_token },
       });
 
-      if (!findToken || !findToken.expired_at) {
-        return Message.unauthorized(res, { message: "CREDENTIAL_NOT_FOUND" });
+      if (
+        !findToken ||
+        !findToken.expired_at ||
+        findToken.expired_at.getTime() <= Date.now()
+      ) {
+        return Message.fail({
+          res,
+          status: "unauthorized",
+          code: "UNAUTHENTICATED",
+        });
       }
 
-      const isExpired = Date.now() > findToken.expired_at.getTime();
+      const refreshTokenPayload: any =
+        JsonWebToken.verifyRefreshToken(refresh_token);
 
-      if (isExpired) {
-        return Message.unauthorized(res, { message: "CREDENTIAL_EXPIRED" });
-      }
+      const accessTokenPayload = {
+        id: refreshTokenPayload.id,
+        name: refreshTokenPayload.name,
+        email: refreshTokenPayload.email,
+      };
 
-      const payload = JsonWebToken.verifyRefreshToken(refresh_token);
-      const { iat, exp, ...userPayload } = payload as any;
-      const newAccessToken = JsonWebToken.signAccessToken(userPayload);
+      const newAccessToken = JsonWebToken.signAccessToken(accessTokenPayload);
 
-      return Message.ok(res, "CREDENTIAL_CREATED", newAccessToken);
+      return Message.created({
+        res,
+        code: "TOKEN_CREATE_SUCCESS",
+        data: newAccessToken,
+      });
     } catch (error: any) {
-      if (error.name === "TokenExpiredError") {
-        return Message.unauthorized(res, { message: "CREDENTIAL_EXPIRED" });
+      console.log(error);
+      if (error instanceof JsonWebTokenError) {
+        switch (error.name) {
+          case "TokenExpiredError":
+            return Message.fail({
+              res,
+              status: "unauthorized",
+              code: "UNAUTHENTICATED",
+            });
+        }
       }
 
-      return Message.error(res, { message: "CREDENTIAL_INVALID_FORMAT" });
+      return Message.fail({
+        res,
+        status: "unauthorized",
+        code: "UNAUTHENTICATED",
+      });
     }
   }
 
@@ -113,7 +145,7 @@ export class AuthController {
       const refresh_token = req.cookies.refresh_token;
 
       if (!refresh_token) {
-        return Message.ok(res, "ALREADY_LOGOUT", {});
+        return Message.ok({ res, code: "LOGOUT_SUCCESS", data: null });
       }
 
       await prisma.refreshToken
@@ -126,9 +158,10 @@ export class AuthController {
         sameSite: "strict",
       });
 
-      return Message.ok(res, "LOGOUT_SUCCESS", {});
+      return Message.ok({ res, code: "LOGOUT_SUCCESS", data: null });
     } catch (error) {
-      return Message.error(res, { message: "SOMETHING_WRONG" });
+      console.log(error);
+      return Message.fail({ res, status: "error", code: "LOGOUT_FAILED" });
     }
   }
 }

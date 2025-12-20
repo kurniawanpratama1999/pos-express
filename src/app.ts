@@ -9,6 +9,7 @@ import { AuthRoute } from "./modules/routes/AuthRoutes";
 import { RoleRoute } from "./modules/routes/RoleRoutes";
 import path from "path";
 import { RoleMiddleware } from "./modules/middlewares/RoleMiddleware";
+import { AnchorRoute } from "./modules/routes/AnchorRoutes";
 
 // VERSIONING -> usage -> versioning("v1", "user");
 const versioning = (version: string, name: string): string =>
@@ -65,5 +66,8 @@ app.use(versioning("v1", "user"), ...middlewares, UserRoute);
 
 // ROLE
 app.use(versioning("v1", "role"), ...middlewares, RoleRoute);
+
+// ANCHOR
+app.use(versioning("v1", "anchor"), ...middlewares, AnchorRoute);
 
 export default app;

@@ -10,13 +10,19 @@ export class RoleMiddleware {
 
       const user = req.user;
       if (!currentUrl) {
-        return Message.badRequest(res, {
-          message: "CURRENT_URL_CANNOT_BE_EMPTY",
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "LOCATION_NOT_FOUND",
         });
       }
 
       if (!user) {
-        return Message.unauthorized(res, { message: "CREADENTIAL_NOT_FOUND" });
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "INVALID_CREDENTIALS",
+        });
       }
 
       const roleId: number = user.roleId;
@@ -55,14 +61,12 @@ export class RoleMiddleware {
       });
 
       if (!isAllowed) {
-        return Message.forbidden(res, {
-          message: `cannot access ${currentUrl}`,
-        });
+        return Message.fail({ res, status: "forbidden", code: "NOT_ALLOWED" });
       }
 
       return next();
     } catch (error) {
-      return Message.error(res, { message: "FAILED_TO_ACCESS" });
+      return Message.fail({ res, status: "error", code: "ACCESS_FAILED" });
     }
   }
 }

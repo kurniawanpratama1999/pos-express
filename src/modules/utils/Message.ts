@@ -1,77 +1,52 @@
 import { Response } from "express";
+const HTTP_ERROR = {
+  badRequest: 400,
+  unauthorized: 401,
+  forbidden: 403,
+  notFound: 404,
+  conflict: 409,
+  unprocessable: 422,
+  error: 500,
+} as const;
+
+interface Ok<T> {
+  res: Response;
+  code: string;
+  data: T | null;
+}
+
+interface Fail {
+  res: Response;
+  code: string;
+  status: keyof typeof HTTP_ERROR;
+  errors?: unknown;
+}
 
 export class Message {
-  public static ok<T>(res: Response, message: string, data: T) {
+  public static ok<T>(params: Ok<T>) {
+    const { res, code, data } = params;
     return res.status(200).json({
       success: true,
-      status: "OK",
-      message,
+      code,
       data,
     });
   }
 
-  public static created<T>(res: Response, message: string, data: T) {
+  public static created<T>(params: Ok<T>) {
+    const { res, code, data } = params;
     return res.status(201).json({
       success: true,
-      status: "CREATED",
-      message,
+      code,
       data,
     });
   }
 
-  public static badRequest(res: Response, error: any) {
-    return res.status(400).json({
+  public static fail(params: Fail) {
+    const { res, code, status } = params;
+    return res.status(HTTP_ERROR[status]).json({
       success: false,
-      status: "BAD_REQUEST",
-      error,
-    });
-  }
-
-  public static unauthorized(res: Response, error: any) {
-    return res.status(401).json({
-      success: false,
-      status: "UNATHORIZED",
-      error,
-    });
-  }
-
-  public static forbidden(res: Response, error: any) {
-    return res.status(403).json({
-      success: false,
-      status: "FORBIDDEN",
-      error,
-    });
-  }
-
-  public static notfound(res: Response, error: any) {
-    return res.status(404).json({
-      success: false,
-      status: "NOT_FOUND",
-      error,
-    });
-  }
-
-  public static conflict(res: Response, error: any) {
-    return res.status(409).json({
-      success: false,
-      status: "CONFLICT",
-      error,
-    });
-  }
-
-  public static unprocessable(res: Response, error: any) {
-    return res.status(422).json({
-      success: false,
-      status: "UNPROCESSABLE_ENTITIY",
-      error,
-    });
-  }
-
-  public static error(res: Response, error: any) {
-    return res.status(500).json({
-      success: false,
-      status: "INTERNAL_SERVER_ERROR",
-      error,
+      code,
+      data: null,
     });
   }
 }

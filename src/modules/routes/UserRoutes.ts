@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { UserController } from "../controllers/Accessibility/UserController";
 import { UserValidation } from "../validations/user.validation";
-import { Validate } from "../utils/Validate";
+import { Validate } from "../middlewares/ValidateMiddleware";
 
 const UserRoute = Router();
 

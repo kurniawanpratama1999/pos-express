@@ -1,59 +1,209 @@
 import { Request, Response } from "express";
 import { prisma } from "../../../lib/prisma";
 import { Message } from "../../utils/Message";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 
 export class DiscountController {
   public static async index(req: Request, res: Response) {
     try {
       const discounts = await prisma.discount.findMany();
-      return Message.ok(res, "Fetch discounts is success", discounts);
-    } catch (error: any) {
-      return Message.error(res, { message: error.message });
+      return Message.ok({
+        res,
+        code: "DISCOUNT_FETCH_SUCCESS",
+        data: discounts,
+      });
+    } catch (error) {
+      console.error(error);
+      return Message.fail({
+        res,
+        status: "error",
+        code: "DISCOUNT_FETCH_ERROR",
+      });
     }
   }
   public static async show(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
+      if (!id) {
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "DISCOUNT_ID_NOT_FOUND",
+        });
+      }
       const discount = await prisma.discount.findUnique({ where: { id } });
-      return Message.ok(res, `Fetch discount by id-${id} is success`, discount);
-    } catch (error: any) {
-      return Message.error(res, { message: error.message });
+      if (!discount) {
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "DISCOUNT_NOT_FOUND",
+        });
+      }
+      return Message.ok({ res, code: "DISCOUNT_FETCH_SUCCESS", data: null });
+    } catch (error) {
+      console.error(error);
+      return Message.fail({
+        res,
+        status: "error",
+        code: "DISCOUNT_FETCH_ERROR",
+      });
     }
   }
   public static async store(req: Request, res: Response) {
     try {
-      const data = req.body;
-      const storeData = await prisma.discount.create({ data });
-      return Message.ok(res, `Store discount is success`, storeData);
-    } catch (error: any) {
-      return Message.unprocessable(res, { message: error.message });
+      const body = req.body;
+      await prisma.discount.create({
+        data: {
+          name: body.name,
+          type: body.type,
+          percentage: body.percentage,
+          amount: body.amount,
+          is_stackable: body.is_stackable,
+          priority: body.priority,
+          max_discount: body.max_discount,
+          apply_to: body.apply_to,
+          is_active: body.is_active,
+          start_at: body.start_at,
+          end_at: body.end_at,
+        },
+      });
+
+      return Message.created({
+        res,
+        code: "DISCOUNT_CREATE_SUCCESS",
+        data: null,
+      });
+    } catch (error) {
+      console.error(error);
+      if (error instanceof PrismaClientKnownRequestError) {
+        switch (error.code) {
+          case "P2002":
+            // "Unique constraint failed on the {constraint}"
+            return Message.fail({
+              res,
+              status: "conflict",
+              code: "DISCOUNT_ALREADY_EXISTS",
+            });
+          case "P2003":
+            // "Foreign key constraint failed on the field: {field_name}"
+            return Message.fail({
+              res,
+              status: "badRequest",
+              code: "DISCOUNT_INVALID_RELATION",
+            });
+          case "P2014":
+            // "The change you are trying to make would violate the required relation
+            // '{relation_name}' between the {model_a_name} and {model_b_name} models."
+            return Message.fail({
+              res,
+              status: "conflict",
+              code: "DISCOUNT_RELATION_CONSTRAINT",
+            });
+        }
+      }
+      return Message.fail({
+        res,
+        status: "error",
+        code: "DISCOUNT_CREATE_ERROR",
+      });
     }
   }
   public static async update(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
-      const data = req.body;
-      const updateData = await prisma.discount.update({ data, where: { id } });
-      return Message.ok(
+      if (!id) {
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "DISCOUNT_ID_NOT_FOUND",
+        });
+      }
+      const body = req.body;
+      const discount = await prisma.discount.update({
+        data: {
+          name: body.name,
+          type: body.type,
+          percentage: body.percentage,
+          amount: body.amount,
+          is_stackable: body.is_stackable,
+          priority: body.priority,
+          max_discount: body.max_discount,
+          apply_to: body.apply_to,
+          is_active: body.is_active,
+          start_at: body.start_at,
+          end_at: body.end_at,
+        },
+        where: { id },
+      });
+      if (!discount) {
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "DISCOUNT_NOT_FOUND",
+        });
+      }
+      return Message.ok({ res, code: "DISCOUNT_UPDATE_SUCCESS", data: null });
+    } catch (error) {
+      console.error(error);
+      if (error instanceof PrismaClientKnownRequestError) {
+        switch (error.code) {
+          case "P2025":
+            // "An operation failed because it depends on one or more records
+            // that were required but not found. {cause}"
+            // Operasi gagal karna ketergantunagan terhadap data yang dibutuhkan tidak ditemukan
+            return Message.fail({
+              res,
+              status: "notFound",
+              code: "DISCOUNT_NOT_FOUND",
+            });
+        }
+      }
+      return Message.fail({
         res,
-        `Update discount with id-${id} is success`,
-        updateData
-      );
-    } catch (error: any) {
-      return Message.unprocessable(res, { message: error.message });
+        status: "error",
+        code: "DISCOUNT_UPDATE_ERROR",
+      });
     }
   }
   public static async destroy(req: Request, res: Response) {
     try {
       const id = Number(req.params.id);
-      const destroyData = await prisma.discount.delete({ where: { id } });
-      return Message.ok(
+      if (!id) {
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "DISCOUNT_ID_NOT_FOUND",
+        });
+      }
+      const discount = await prisma.discount.delete({ where: { id } });
+      if (!discount) {
+        return Message.fail({
+          res,
+          status: "notFound",
+          code: "DISCOUNT_NOT_FOUND",
+        });
+      }
+      return Message.ok({ res, code: "DISCOUNT_DELETE_SUCCESS", data: null });
+    } catch (error) {
+      console.error(error);
+      if (error instanceof PrismaClientKnownRequestError) {
+        switch (error.code) {
+          case "P2025":
+            // "An operation failed because it depends on one or more records
+            // that were required but not found. {cause}"
+            // Operasi gagal karna ketergantunagan terhadap data yang dibutuhkan tidak ditemukan
+            return Message.fail({
+              res,
+              status: "notFound",
+              code: "DISCOUNT_NOT_FOUND",
+            });
+        }
+      }
+      return Message.fail({
         res,
-        `Update discount with id-${id} is success`,
-        destroyData
-      );
-    } catch (error: any) {
-      return Message.unprocessable(res, { message: error.message });
+        status: "error",
+        code: "DISCOUNT_DELETE_ERROR",
+      });
     }
   }
 }
